@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050b16">
 <title>ZEKO CHARGE | شحن الألعاب والتطبيقات</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#050b16;--panel:#0a1426;--panel2:#0d1b31;--line:#233753;--gold:#ffd45a;--gold2:#f2ad22;--muted:#9babc3;--white:#f5f7fc;--red:#ff626e;--green:#52d7a0}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#172744 0,#050b16 58%);color:var(--white);font-family:Tahoma,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:82px}.top{position:sticky;top:0;z-index:10;background:#050b16ed;backdrop-filter:blur(16px);border-bottom:1px solid #1b2c45;padding:10px 14px}.toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.5px}.bolt{color:var(--gold);font-size:35px;text-shadow:0 0 18px #ffca45}.brand small{display:block;font-size:10px;color:var(--gold);letter-spacing:3px;text-align:center}.round{border:1px solid var(--line);background:#0d1b30;color:var(--white);width:40px;height:40px;border-radius:14px;font-size:18px}.search{display:flex;gap:8px;margin-top:10px}.search input,.field{width:100%;background:#0a1629;border:1px solid #2b4161;border-radius:13px;padding:12px;color:white;outline:none}.search input:focus,.field:focus{border-color:var(--gold)}.hero{margin:14px;border:1px solid #34445a;border-radius:19px;overflow:hidden;position:relative;min-height:205px;background:linear-gradient(90deg,#07102022,#071020e8),url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85') center/cover}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#050b16e8,transparent 70%);pointer-events:none}.heroContent{position:absolute;z-index:1;bottom:18px;right:17px;left:17px}.hero h1{font-size:23px;margin:0 0 7px}.hero p{margin:0 0 13px;color:#e0e7f3;font-size:13px}.goldbtn{border:0;border-radius:12px;padding:12px 17px;background:linear-gradient(135deg,#ffe77d,#ffbe30);color:#17130a;font-weight:900;box-shadow:0 4px 20px #ffc83d35}.goldbtn:disabled{opacity:.5}.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 14px}.cat{min-height:87px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#111e32,#071020);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;color:#e9eef8;font-size:12px}.cat b{font-size:25px;color:var(--gold);text-shadow:0 0 13px #f9bd40}.section{padding:18px 14px 4px}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.section h2{font-size:17px;margin:0}.muted{color:var(--muted);font-size:12px}.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(150deg,#102039,#071020);min-width:0}.product img{width:100%;height:112px;object-fit:cover;display:block;background:#101e33}.productbody{padding:10px}.product h3{font-size:13px;margin:0 0 7px;min-height:32px}.price{color:var(--gold);font-weight:900;margin:6px 0 10px}.product .goldbtn{width:100%;padding:10px;font-size:12px}.panel{margin:14px;padding:15px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,#101e33,#071020)}.hidden{display:none!important}.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:#061020f5;border-top:1px solid #273a57;z-index:20;backdrop-filter:blur(15px)}.tab{border:0;background:transparent;color:#91a2bc;font-size:11px;display:flex;align-items:center;flex-direction:column;gap:4px;padding:4px}.tab span{font-size:20px}.tab.active{color:var(--gold)}.screenTitle{display:flex;align-items:center;gap:10px;margin:17px 14px}.screenTitle h2{font-size:20px;margin:0}.form{display:grid;gap:10px}.form label{font-size:12px;color:#c8d2e2}.form .goldbtn{width:100%}.linkbtn{background:none;border:0;color:var(--gold);padding:8px 0}.notice{padding:11px;border-radius:12px;background:#12223a;border:1px solid #293e5d;color:#c9d6e8;font-size:12px;line-height:1.7}.status{display:inline-block;border-radius:20px;padding:5px 9px;background:#17263d;color:#f7d675;font-size:11px}.listrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid #1b2d46}.listrow:last-child{border:0}.avatar{width:48px;height:48px;display:grid;place-items:center;background:#182945;color:var(--gold);border:1px solid #604e28;border-radius:50%;font-size:24px}.balance{font-size:28px;font-weight:900;color:var(--gold)}.empty{text-align:center;padding:26px 12px;color:var(--muted);font-size:13px}.danger{color:var(--red)}.supportmsg{white-space:pre-wrap;background:#0b182a;border:1px solid #203552;padding:11px;border-radius:12px;margin:8px 0;font-size:13px}.foot{text-align:center;padding:20px;color:#75849b;font-size:11px}
+:root{--bg:#050b16;--panel:#0a1426;--line:#233753;--gold:#ffd45a;--muted:#9babc3;--white:#f5f7fc;--red:#ff626e;--green:#52d7a0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#172744 0,#050b16 58%);color:var(--white);font-family:Tahoma,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:85px}.top{position:sticky;top:0;z-index:10;background:#050b16ed;backdrop-filter:blur(16px);border-bottom:1px solid #1b2c45;padding:10px 14px}.toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.5px}.bolt{color:var(--gold);font-size:35px;text-shadow:0 0 18px #ffca45}.brand small{display:block;font-size:10px;color:var(--gold);letter-spacing:3px;text-align:center}.round{border:1px solid var(--line);background:#0d1b30;color:var(--white);width:40px;height:40px;border-radius:14px;font-size:18px}.search{display:flex;gap:8px;margin-top:10px}.search input,.field{width:100%;background:#0a1629;border:1px solid #2b4161;border-radius:13px;padding:12px;color:white;outline:none}.search input:focus,.field:focus{border-color:var(--gold)}.hero{margin:14px;border:1px solid #34445a;border-radius:19px;overflow:hidden;position:relative;min-height:205px;background:linear-gradient(90deg,#07102022,#071020e8),url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85') center/cover}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#050b16e8,transparent 70%);pointer-events:none}.heroContent{position:absolute;z-index:1;bottom:18px;right:17px;left:17px}.hero h1{font-size:23px;margin:0 0 7px}.hero p{margin:0 0 13px;color:#e0e7f3;font-size:13px}.goldbtn{border:0;border-radius:12px;padding:12px 17px;background:linear-gradient(135deg,#ffe77d,#ffbe30);color:#17130a;font-weight:900;box-shadow:0 4px 20px #ffc83d35}.goldbtn:disabled{opacity:.5;cursor:not-allowed}.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 14px}.cat{min-height:87px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#111e32,#071020);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;color:#e9eef8;font-size:12px}.cat b{font-size:25px;color:var(--gold)}.section{padding:18px 14px 4px}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.section h2{font-size:17px;margin:0}.muted{color:var(--muted);font-size:12px}.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(150deg,#102039,#071020);min-width:0}.product img{width:100%;height:112px;object-fit:cover;display:block;background:#101e33}.productbody{padding:10px}.product h3{font-size:13px;margin:0 0 7px;min-height:32px}.price{color:var(--gold);font-weight:900;margin:6px 0 10px}.product .goldbtn{width:100%;padding:10px;font-size:12px}.panel{margin:14px;padding:15px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,#101e33,#071020)}.hidden{display:none!important}.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:#061020f5;border-top:1px solid #273a57;z-index:20;backdrop-filter:blur(15px)}.tab{border:0;background:transparent;color:#91a2bc;font-size:11px;display:flex;align-items:center;flex-direction:column;gap:4px;padding:4px}.tab span{font-size:20px}.tab.active{color:var(--gold)}.screenTitle{display:flex;align-items:center;gap:10px;margin:17px 14px}.screenTitle h2{font-size:20px;margin:0}.form{display:grid;gap:10px}.form label{font-size:12px;color:#c8d2e2}.form .goldbtn{width:100%}.linkbtn{background:none;border:0;color:var(--gold);padding:8px 0}.notice{padding:11px;border-radius:12px;background:#12223a;border:1px solid #293e5d;color:#c9d6e8;font-size:12px;line-height:1.7}.status{display:inline-block;border-radius:20px;padding:5px 9px;background:#17263d;color:#f7d675;font-size:11px}.listrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid #1b2d46}.listrow:last-child{border:0}.avatar{width:48px;height:48px;display:grid;place-items:center;background:#182945;color:var(--gold);border:1px solid #604e28;border-radius:50%;font-size:24px}.balance{font-size:28px;font-weight:900;color:var(--gold)}.empty{text-align:center;padding:26px 12px;color:var(--muted);font-size:13px}.danger{color:var(--red)}.foot{text-align:center;padding:20px;color:#75849b;font-size:11px}.toast{position:fixed;z-index:99;bottom:85px;left:50%;transform:translateX(-50%);width:min(90%,480px);background:#14253c;border:1px solid #38506e;border-radius:12px;padding:12px 14px;color:white;box-shadow:0 8px 28px #0008;font-size:13px}.balanceLine{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #1b2d46}.balanceLine:last-child{border:0}
 </style>
 </head>
 <body>
@@ -21,16 +22,14 @@
  </div>
  <div class="search"><input id="searchInput" placeholder="ابحث عن منتج أو لعبة..." autocomplete="off"><button class="round" id="searchBtn">⌕</button></div>
 </header>
-
 <main id="homeScreen">
- <section class="hero"><div class="heroContent"><h1>شحنك أسرع… لعبك أقوى ⚡</h1><p>شحن ألعاب وبطاقات رقمية من مكان واحد</p><button class="goldbtn" onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})">اكتشف المنتجات ←</button></div></section>
+ <section class="hero"><div class="heroContent"><h1>شحنك أسرع… لعبك أقوى ⚡</h1><p>شحن ألعاب وبطاقات رقمية من مكان واحد</p><button class="goldbtn" id="discoverBtn">اكتشف المنتجات ←</button></div></section>
  <section class="categories">
   <button class="cat" data-category="ألعاب"><b>🎮</b>ألعاب</button><button class="cat" data-category="شحن الجوال"><b>▣</b>شحن الجوال</button><button class="cat" data-category="بطاقات رقمية"><b>💳</b>بطاقات رقمية</button><button class="cat" data-category="تطبيقات"><b>▦</b>تطبيقات</button>
  </section>
- <section class="section" id="productsSection"><div class="sectionhead"><h2>🔥 الأكثر مبيعاً</h2><span class="muted" id="productCount">منتجات رقمية</span></div><div id="productsGrid" class="products"></div></section>
+ <section class="section" id="productsSection"><div class="sectionhead"><h2>🔥 المنتجات</h2><span class="muted" id="productCount">منتجات رقمية</span></div><div id="productsGrid" class="products"></div></section>
  <div class="foot">ZEKO CHARGE · شحن وبطاقات رقمية</div>
 </main>
-
 <section id="authScreen" class="hidden">
  <div class="screenTitle"><button class="round" data-screen="home">←</button><h2 id="authTitle">إنشاء حساب</h2></div>
  <div class="panel"><div class="notice">أنشئ حسابك لتتابع طلباتك ومحفظتك. لا تشارك كلمة السر مع أي شخص.</div>
@@ -38,18 +37,17 @@
    <div id="nameWrap"><label>الاسم</label><input class="field" id="fullName" autocomplete="name" placeholder="اسمك الكامل"></div>
    <div><label>البريد الإلكتروني</label><input class="field" id="email" type="email" required autocomplete="email" placeholder="name@example.com"></div>
    <div id="passwordWrap"><label>كلمة السر</label><input class="field" id="password" type="password" minlength="8" autocomplete="new-password" placeholder="8 أحرف على الأقل"></div>
-   <button class="goldbtn" id="authSubmit">إنشاء حساب</button>
+   <button class="goldbtn" id="authSubmit" type="submit">إنشاء حساب</button>
   </form>
   <button class="linkbtn" id="switchAuth">لديك حساب؟ تسجيل الدخول</button>
   <button class="linkbtn" id="forgotBtn">نسيت كلمة السر؟</button>
   <div id="authMessage" class="notice hidden" role="status"></div>
  </div>
 </section>
-
 <section id="accountScreen" class="hidden">
  <div class="screenTitle"><h2>حسابي</h2><span class="status" id="accountStatus">ضيف</span></div>
  <div class="panel"><div class="toprow"><div style="display:flex;align-items:center;gap:10px"><div class="avatar">♙</div><div><b id="accountName">مرحباً بك</b><div class="muted" id="accountEmail">سجّل الدخول لإدارة حسابك</div></div></div><button class="round" id="accountAuthBtn">↗</button></div></div>
- <div class="panel"><div class="muted">رصيد المحفظة</div><div class="balance" id="walletBalance">—</div><div class="notice" style="margin-top:10px">رصيد المحفظة يظهر بعد تفعيل نظام المحفظة الآمن واعتماد أي إيداع من الإدارة.</div><button class="goldbtn" style="margin-top:12px;width:100%" data-screen="wallet">عرض المحفظة</button></div>
+ <div class="panel"><div class="muted">رصيد المحفظة</div><div class="balance" id="walletBalance">—</div><div id="walletBalances"></div><div class="notice" style="margin-top:10px">لن يُضاف أي رصيد إلا بعد التحقق من الحوالة وموافقة الإدارة.</div><button class="goldbtn" style="margin-top:12px;width:100%" data-screen="wallet">عرض المحفظة والإيداع</button></div>
  <div class="panel">
   <div class="listrow"><div>🧾 طلباتي</div><button class="linkbtn" data-screen="orders">عرض الطلبات ←</button></div>
   <div class="listrow"><div>🛡️ توثيق الهوية</div><button class="linkbtn" data-screen="verify">فتح التوثيق ←</button></div>
@@ -58,99 +56,84 @@
   <div class="listrow"><div>تسجيل الخروج</div><button class="linkbtn danger" id="logoutBtn">خروج</button></div>
  </div>
 </section>
-
 <section id="walletScreen" class="hidden">
-  <div class="screenTitle">
-    <button class="round" data-screen="account">←</button>
-    <h2>محفظتي</h2>
-  </div>
-
-  <div class="panel">
-    <div class="muted">الرصيد المتاح</div>
-    <div class="balance" id="walletBalance2">—</div>
-    <button class="goldbtn" style="width:100%;margin-top:14px"
-      data-screen="deposit">
-      💰 إيداع رصيد
-    </button>
-  </div>
-
-  <div class="panel" id="depositPanel">
-    <h3>طلب إيداع جديد</h3>
-    <form id="depositForm" class="form">
-      <label>مبلغ الإيداع</label>
-      <input id="depositAmount" class="field" type="number"
-        min="1" step="0.01" required placeholder="أدخل المبلغ">
-
-      <label>العملة</label>
-      <select id="depositCurrency" class="field" required>
-        <option value="USD">دولار أمريكي (USD)</option>
-        <option value="SYP">ليرة سورية (SYP)</option>
-      </select>
-
-      <label>طريقة الدفع</label>
-      <select id="depositMethod" class="field" required>
-        <option value="Sham Cash">شام كاش</option>
-        <option value="Binance">Binance</option>
-      </select>
-
-      <label>رقم العملية أو مرجع التحويل</label>
-      <input id="depositReference" class="field" maxlength="150"
-        required placeholder="أدخل رقم العملية">
-
-      <button class="goldbtn" type="submit">إرسال طلب الإيداع</button>
-    </form>
-    <div id="depositMessage" class="notice hidden" style="margin-top:12px"></div>
-    <p class="muted">لن يُضاف الرصيد حتى يتم التحقق من وصول المبلغ والموافقة على الطلب.</p>
-  </div>
-
-  <div class="panel">
-    <h3>سجل حركات المحفظة</h3>
-    <div class="empty">سيظهر السجل بعد ربط نظام المحفظة الآمن.</div>
-  </div>
+ <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>محفظتي</h2></div>
+ <div class="panel"><div class="muted">الأرصدة المتاحة</div><div id="walletBalance2" class="balance">—</div><div id="walletBalances2"></div><button class="goldbtn" id="depositScroll" type="button" style="width:100%;margin-top:14px">💰 إيداع رصيد</button></div>
+ <div class="panel" id="depositPanel">
+  <h3>طلب إيداع جديد</h3>
+  <div class="notice">حوّل المبلغ إلى حساب الدفع الرسمي للمتجر أولاً، ثم أدخل رقم العملية. لا ترسل كلمة السر أو رموز التحقق.</div>
+  <form id="depositForm" class="form" style="margin-top:12px">
+   <label>مبلغ الإيداع</label><input id="depositAmount" class="field" type="number" min="1" step="0.01" required placeholder="أدخل المبلغ">
+   <label>العملة</label><select id="depositCurrency" class="field" required><option value="USD">دولار أمريكي (USD)</option><option value="SYP">ليرة سورية (SYP)</option></select>
+   <label>طريقة الدفع</label><select id="depositMethod" class="field" required><option value="Sham Cash">شام كاش</option><option value="Binance">Binance</option></select>
+   <label>رقم العملية أو مرجع التحويل</label><input id="depositReference" class="field" maxlength="150" required placeholder="أدخل رقم العملية">
+   <button class="goldbtn" id="depositSubmit" type="submit">إرسال طلب الإيداع</button>
+  </form>
+  <div id="depositMessage" class="notice hidden" role="status" style="margin-top:12px"></div>
+  <p class="muted">إرسال الطلب لا يعني إضافة الرصيد تلقائياً. تتم الإضافة بعد مراجعة الإدارة.</p>
+ </div>
+ <div class="panel"><h3>طلبات الإيداع السابقة</h3><div id="depositHistory" class="empty">سجّل الدخول لعرض الطلبات.</div></div>
+ <div class="panel"><h3>سجل حركات المحفظة</h3><div id="transactionHistory" class="empty">لا توجد حركات معروضة حالياً.</div></div>
 </section>
-/* إعداد Supabase: ضع رابط مشروعك والمفتاح العام publishable/anon هنا فقط.
-   لا تضع service_role key أبداً داخل HTML. */
+<section id="cartScreen" class="hidden">
+ <div class="screenTitle"><button class="round" data-screen="home">←</button><h2>سلة المشتريات</h2></div>
+ <div class="panel"><div id="cartItems" class="empty">السلة فارغة حالياً.</div><div class="listrow"><b>المجموع</b><b class="price" id="cartTotal">$0.00</b></div><button class="goldbtn" id="checkoutBtn" style="width:100%">متابعة الطلب</button><div id="checkoutMessage" class="notice hidden" style="margin-top:10px"></div></div>
+</section>
+<section id="ordersScreen" class="hidden"><div class="screenTitle"><button class="round" data-screen="account">←</button><h2>طلباتي</h2></div><div class="panel"><div class="empty">ربط سجل الطلبات يحتاج إلى إعداد جدول الطلبات في قاعدة البيانات.</div></div></section>
+<section id="verifyScreen" class="hidden"><div class="screenTitle"><button class="round" data-screen="account">←</button><h2>توثيق الهوية</h2></div><div class="panel"><div class="notice">ميزة التوثيق غير مفعّلة حالياً. لا ترفع وثائق شخصية قبل إعداد نظام آمن ومراجعة الحاجة إليها.</div></div></section>
+<section id="supportScreen" class="hidden"><div class="screenTitle"><button class="round" data-screen="account">←</button><h2>الدعم الفني</h2></div><div class="panel"><div class="notice">أرسل استفسارك للدعم. هذا النموذج يعرض رسالة فقط ما لم يتم ربطه بجدول دعم في قاعدة البيانات.</div><form id="supportForm" class="form" style="margin-top:12px"><label>عنوان الرسالة</label><input id="supportSubject" class="field" required maxlength="120" placeholder="مثلاً: استفسار عن إيداع"><label>التفاصيل</label><textarea id="supportDetails" class="field" rows="4" required maxlength="1500" placeholder="اكتب تفاصيل المشكلة"></textarea><button class="goldbtn" type="submit">إرسال الرسالة</button></form><div id="supportMessage" class="notice hidden" style="margin-top:10px"></div></div></section>
+<nav class="tabs">
+ <button class="tab active" data-screen="home"><span>⌂</span>الرئيسية</button>
+ <button class="tab" data-screen="orders"><span>▤</span>طلباتي</button>
+ <button class="tab" data-screen="account"><span>♙</span>حسابي</button>
+ <button class="tab" data-screen="support"><span>♧</span>الدعم</button>
+</nav>
+<div id="toast" class="toast hidden" role="status"></div>
+</div>
+<script>
+/* استخدم المفتاح العام publishable/anon فقط. لا تضع service_role في واجهة المتجر. */
 const SUPABASE_URL = 'https://hclijvtwwtnqbmnpyjkj.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_-Xy6srs_dD6cZvPsihUzuQ_jWXf6z1N';
-const configured = SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes('PASTE_');
-const sb = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const sb = window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const $ = id => document.getElementById(id);
 const demoProducts = [
- {id:'demo-pubg',name:'شحن شدات ببجي موبايل',category:'ألعاب',description:'شحن شدات PUBG Mobile',price:0.99,currency:'USD',image_url:'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80'},
- {id:'demo-ml',name:'شحن جواهر Mobile Legends',category:'ألعاب',description:'جواهر ألعاب رقمية',price:0.99,currency:'USD',image_url:'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80'},
+ {id:'demo-pubg',name:'شحن شدات ببجي موبايل',category:'ألعاب',description:'شحن شدات PUBG Mobile — السعر تجريبي',price:0.99,currency:'USD',image_url:'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80'},
+ {id:'demo-ml',name:'شحن جواهر Mobile Legends',category:'ألعاب',description:'جواهر ألعاب رقمية — السعر تجريبي',price:0.99,currency:'USD',image_url:'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80'},
  {id:'demo-google',name:'بطاقة Google Play',category:'بطاقات رقمية',description:'بطاقة متجر رقمية — السعر تجريبي',price:5,currency:'USD',image_url:'https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?auto=format&fit=crop&w=700&q=80'},
  {id:'demo-steam',name:'بطاقة Steam',category:'بطاقات رقمية',description:'بطاقة ألعاب رقمية — السعر تجريبي',price:5,currency:'USD',image_url:'https://images.unsplash.com/photo-1614294149010-950b698f72c0?auto=format&fit=crop&w=700&q=80'}
 ];
-let products = demoProducts, cart = [], authMode='signup', currentUser=null, activeScreen='home';
-const $=id=>document.getElementById(id);
-function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),3500)}
-function showScreen(name){activeScreen=name;['home','auth','account','wallet','orders','verify','support','cart'].forEach(s=>$(s+'Screen').classList.toggle('hidden',s!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.screen===name));window.scrollTo({top:0,behavior:'smooth'});if(name==='account')renderAccount();if(name==='cart')renderCart()}
+let products = demoProducts, cart = [], authMode = 'signup', currentUser = null, walletData = [];
+function toast(message){$('toast').textContent=message;$('toast').classList.remove('hidden');clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),3500)}
+function showScreen(name){const screens=['home','auth','account','wallet','orders','verify','support','cart'];screens.forEach(s=>{const el=$(s+'Screen');if(el)el.classList.toggle('hidden',s!==name)});document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.screen===name));window.scrollTo({top:0,behavior:'smooth'});if(name==='account')renderAccount();if(name==='wallet')refreshWallet();if(name==='cart')renderCart();if(name==='wallet')loadDepositHistory()}
 document.querySelectorAll('[data-screen]').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.screen)));
+$('discoverBtn').onclick=()=>$('productsSection').scrollIntoView({behavior:'smooth'});
 function money(p){return (p.currency==='SYP'?'ل.س ':'$')+Number(p.price||0).toLocaleString('en-US',{maximumFractionDigits:2})}
-function renderProducts(list=products){$('productsGrid').innerHTML='';$('productCount').textContent=list.length+' منتجات';list.forEach(p=>{const el=document.createElement('article');el.className='product';const img=document.createElement('img');img.src=p.image_url||'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80';img.alt=p.name;img.loading='lazy';const body=document.createElement('div');body.className='productbody';const h=document.createElement('h3');h.textContent=p.name;const d=document.createElement('div');d.className='muted';d.textContent=p.category||'منتج رقمي';const price=document.createElement('div');price.className='price';price.textContent=money(p);const btn=document.createElement('button');btn.className='goldbtn';btn.textContent='اطلب الآن ←';btn.onclick=()=>{cart.push(p);$('cartCount').textContent=cart.length;toast('تمت إضافة المنتج للسلة');};body.append(h,d,price,btn);el.append(img,body);$('productsGrid').append(el)})}
-async function loadProducts(){if(!sb){renderProducts();return}try{const {data,error}=await sb.from('products').select('id,name,category,description,price,currency,image_url').eq('active',true).order('created_at',{ascending:false});if(error)throw error;if(data&&data.length){products=data;renderProducts()}else renderProducts()}catch(e){console.warn(e);renderProducts()}}
+function renderProducts(list=products){$('productsGrid').innerHTML='';$('productCount').textContent=list.length+' منتجات';if(!list.length){$('productsGrid').innerHTML='<div class="empty">لا توجد منتجات مطابقة.</div>';return}list.forEach(p=>{const el=document.createElement('article');el.className='product';const img=document.createElement('img');img.src=p.image_url||demoProducts[0].image_url;img.alt=p.name||'منتج';img.loading='lazy';const body=document.createElement('div');body.className='productbody';const h=document.createElement('h3');h.textContent=p.name||'منتج';const d=document.createElement('div');d.className='muted';d.textContent=p.category||'منتج رقمي';const price=document.createElement('div');price.className='price';price.textContent=money(p);const btn=document.createElement('button');btn.className='goldbtn';btn.textContent='أضف إلى السلة';btn.onclick=()=>{cart.push(p);$('cartCount').textContent=cart.length;toast('تمت إضافة المنتج للسلة')};body.append(h,d,price,btn);el.append(img,body);$('productsGrid').append(el)})}
+async function loadProducts(){if(!sb){renderProducts();return}try{const {data,error}=await sb.from('products').select('id,name,category,description,price,currency,image_url').eq('active',true).order('created_at',{ascending:false});if(error)throw error;if(data&&data.length)products=data;renderProducts()}catch(e){console.warn('products',e);renderProducts()}}
 function setAuthMode(mode){authMode=mode;$('authTitle').textContent=mode==='signup'?'إنشاء حساب':mode==='login'?'تسجيل الدخول':'استعادة كلمة السر';$('authSubmit').textContent=mode==='signup'?'إنشاء حساب':mode==='login'?'دخول':'إرسال رابط الاستعادة';$('nameWrap').classList.toggle('hidden',mode!=='signup');$('passwordWrap').classList.toggle('hidden',mode==='reset');$('forgotBtn').classList.toggle('hidden',mode!=='login');$('switchAuth').classList.toggle('hidden',mode==='reset');$('switchAuth').textContent=mode==='signup'?'لديك حساب؟ تسجيل الدخول':'ليس لديك حساب؟ إنشاء حساب';$('authMessage').classList.add('hidden');$('password').required=mode!=='reset';$('password').autocomplete=mode==='login'?'current-password':'new-password'}
 function showAuth(mode='signup'){setAuthMode(mode);showScreen('auth')}
 $('accountAuthBtn').onclick=()=>currentUser?toast('أنت مسجّل الدخول بالفعل'):showAuth('signup');
 $('switchAuth').onclick=()=>setAuthMode(authMode==='signup'?'login':'signup');
 $('forgotBtn').onclick=()=>setAuthMode('reset');$('accountForgot').onclick=()=>showAuth('reset');
-$('authForm').addEventListener('submit',async e=>{e.preventDefault();if(!sb){$('authMessage').textContent='أضف مفتاح Supabase العام داخل الكود أولاً، ثم احفظ الملف. لا تستخدم مفتاح service_role.';$('authMessage').classList.remove('hidden');return}
-const email=$('email').value.trim(), password=$('password').value, fullName=$('fullName').value.trim();$('authSubmit').disabled=true;
-try{let result;if(authMode==='signup'){result=await sb.auth.signUp({email,password,options:{data:{full_name:fullName},emailRedirectTo:location.origin+location.pathname}});if(!result.error){$('authMessage').textContent='تم إنشاء الطلب. إذا كان تأكيد البريد مفعّلاً، افتح رسالة Supabase لتأكيد الحساب ثم سجّل الدخول.';$('authMessage').classList.remove('hidden');return}}
-else if(authMode==='login'){result=await sb.auth.signInWithPassword({email,password});if(!result.error){currentUser=result.data.user;toast('تم تسجيل الدخول');showScreen('account');return}}
-else{result=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(!result.error){$('authMessage').textContent='إذا كان البريد مسجلاً، سيصلك رابط آمن لاستعادة كلمة السر. افتح الرابط واتبع التعليمات.';$('authMessage').classList.remove('hidden');return}}
-if(result?.error)throw result.error
-}catch(err){$('authMessage').textContent=err.message||'حدث خطأ، حاول مرة أخرى.';$('authMessage').classList.remove('hidden')}finally{$('authSubmit').disabled=false}});
-async function refreshUser(){if(!sb)return;const {data}=await sb.auth.getSession();currentUser=data.session?.user||null;renderAccount();sb.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;renderAccount()})}
-function renderAccount(){if(currentUser){$('accountName').textContent=currentUser.user_metadata?.full_name||'أهلاً بك';$('accountEmail').textContent=currentUser.email||'';$('accountStatus').textContent='مسجّل';$('accountAuthBtn').textContent='✓'}else{$('accountName').textContent='مرحباً بك';$('accountEmail').textContent='سجّل الدخول لإدارة حسابك';$('accountStatus').textContent='ضيف';$('accountAuthBtn').textContent='↗'}}
-$('logoutBtn').onclick=async()=>{if(sb)await sb.auth.signOut();currentUser=null;renderAccount();showScreen('home');toast('تم تسجيل الخروج')};
-function renderCart(){$('cartItems').innerHTML='';if(!cart.length){$('cartItems').innerHTML='<div class="empty">السلة فارغة حالياً.</div>';$('cartTotal').textContent='$0.00';return}let total=0;cart.forEach((p,i)=>{total+=Number(p.price)||0;const row=document.createElement('div');row.className='listrow';const name=document.createElement('span');name.textContent=p.name;const right=document.createElement('div');right.style.textAlign='left';const price=document.createElement('b');price.textContent=money(p);const del=document.createElement('button');del.className='linkbtn danger';del.textContent='حذف';del.onclick=()=>{cart.splice(i,1);$('cartCount').textContent=cart.length;renderCart()};right.append(price,del);row.append(name,right);$('cartItems').append(row)});$('cartTotal').textContent='$'+total.toFixed(2)}
-$('cartTop').onclick=()=>showScreen('cart');$('checkoutBtn').onclick=()=>{if(!currentUser)showAuth('login');else toast('إتمام الطلب غير مفعّل حتى إعداد نظام الطلبات والدفع الآمن')};
-$('searchBtn').onclick=()=>{const q=$('searchInput').value.trim().toLowerCase();renderProducts(products.filter(p=>(p.name+' '+p.category+' '+(p.description||'')).toLowerCase().includes(q)));$('productsSection').scrollIntoView({behavior:'smooth'})};
-$('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('searchBtn').click()});
+$('authForm').addEventListener('submit',async e=>{e.preventDefault();if(!sb){$('authMessage').textContent='تعذر الاتصال بـ Supabase. تحقق من إعدادات المشروع والمفتاح العام.';$('authMessage').classList.remove('hidden');return}const email=$('email').value.trim(),password=$('password').value,fullName=$('fullName').value.trim();$('authSubmit').disabled=true;try{let result;if(authMode==='signup'){result=await sb.auth.signUp({email,password,options:{data:{full_name:fullName},emailRedirectTo:location.origin+location.pathname}});if(!result.error){$('authMessage').textContent='تم إرسال طلب إنشاء الحساب. إذا كان تأكيد البريد مفعّلاً، افتح رسالة البريد لتأكيد الحساب.';$('authMessage').classList.remove('hidden');return}}else if(authMode==='login'){result=await sb.auth.signInWithPassword({email,password});if(!result.error){currentUser=result.data.user;toast('تم تسجيل الدخول');showScreen('account');await refreshWallet();return}}else{result=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(!result.error){$('authMessage').textContent='إذا كان البريد مسجلاً، سيصلك رابط استعادة كلمة السر.';$('authMessage').classList.remove('hidden');return}}if(result&&result.error)throw result.error}catch(err){$('authMessage').textContent=err.message||'حدث خطأ، حاول مرة أخرى.';$('authMessage').classList.remove('hidden')}finally{$('authSubmit').disabled=false}});
+function renderAccount(){if(currentUser){$('accountName').textContent=currentUser.user_metadata?.full_name||'أهلاً بك';$('accountEmail').textContent=currentUser.email||'';$('accountStatus').textContent='مسجّل';$('accountAuthBtn').textContent='✓'}else{$('accountName').textContent='مرحباً بك';$('accountEmail').textContent='سجّل الدخول لإدارة حسابك';$('accountStatus').textContent='ضيف';$('accountAuthBtn').textContent='↗';$('walletBalance').textContent='—';$('walletBalances').innerHTML=''}}
+async function refreshUser(){if(!sb)return;try{const {data,error}=await sb.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;renderAccount();if(currentUser)await refreshWallet()}catch(e){console.warn('session',e)}}
+$('logoutBtn').onclick=async()=>{if(sb)await sb.auth.signOut();currentUser=null;walletData=[];renderAccount();showScreen('home');toast('تم تسجيل الخروج')};
+function formatBalance(n,c){return (c==='SYP'?'ل.س ':'$')+Number(n||0).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2})}
+function renderWalletBalances(){const html=walletData.length?walletData.map(w=>'<div class="balanceLine"><span>'+String(w.currency||'USD')+'</span><b>'+formatBalance(w.balance,w.currency)+'</b></div>').join():'<div class="muted" style="padding-top:8px">لا يوجد رصيد مسجل بعد.</div>';$('walletBalances').innerHTML=html;$('walletBalances2').innerHTML=html;$('walletBalance').textContent=walletData.length?formatBalance(walletData[0].balance,walletData[0].currency):'0';$('walletBalance2').textContent=walletData.length?formatBalance(walletData[0].balance,walletData[0].currency):'0'}
+async function refreshWallet(){if(!sb||!currentUser){walletData=[];renderWalletBalances();return}try{const {data,error}=await sb.from('wallets').select('currency,balance').eq('user_id',currentUser.id);if(error)throw error;walletData=data||[];renderWalletBalances();await loadTransactions()}catch(e){console.warn('wallet',e);$('walletBalances').innerHTML='<div class="muted">تعذر تحميل الرصيد. تحقق من سياسات RLS وجدول wallets.</div>';$('walletBalances2').innerHTML=$('walletBalances').innerHTML}}
+$('depositScroll').onclick=()=>$('depositPanel').scrollIntoView({behavior:'smooth',block:'start'});
+$('depositForm').addEventListener('submit',async e=>{e.preventDefault();const msg=$('depositMessage');msg.classList.remove('hidden');if(!sb){msg.textContent='الاتصال بقاعدة البيانات غير متاح حالياً.';return}if(!currentUser){msg.textContent='سجّل الدخول أولاً لإرسال طلب الإيداع.';showAuth('login');return}const amount=Number($('depositAmount').value),currency=$('depositCurrency').value,method=$('depositMethod').value,reference=$('depositReference').value.trim();if(!Number.isFinite(amount)||amount<=0||!reference){msg.textContent='أدخل مبلغاً صحيحاً ورقم العملية.';return}const btn=$('depositSubmit');btn.disabled=true;msg.textContent='جارٍ إرسال الطلب…';try{const {error}=await sb.from('deposit_requests').insert({user_id:currentUser.id,amount,currency,payment_method:method,transaction_reference:reference,status:'pending'});if(error)throw error;msg.textContent='تم إرسال طلب الإيداع للمراجعة. لن يضاف الرصيد إلا بعد التحقق وموافقة الإدارة.';$('depositForm').reset();await loadDepositHistory()}catch(err){console.error(err);msg.textContent='لم يُرسل الطلب: '+(err.message||'تحقق من أعمدة جدول deposit_requests وسياسات RLS.')}finally{btn.disabled=false}});
+async function loadDepositHistory(){const box=$('depositHistory');if(!sb||!currentUser){box.className='empty';box.textContent='سجّل الدخول لعرض الطلبات.';return}try{const {data,error}=await sb.from('deposit_requests').select('id,amount,currency,payment_method,status,created_at').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(20);if(error)throw error;if(!data||!data.length){box.className='empty';box.textContent='لا توجد طلبات إيداع سابقة.';return}box.className='';box.innerHTML='';data.forEach(r=>{const row=document.createElement('div');row.className='listrow';const left=document.createElement('div');const title=document.createElement('b');title.textContent=formatBalance(r.amount,r.currency);const detail=document.createElement('div');detail.className='muted';detail.textContent=(r.payment_method||'تحويل')+' · '+(r.created_at?new Date(r.created_at).toLocaleDateString('ar'): '');left.append(title,detail);const status=document.createElement('span');status.className='status';status.textContent=r.status==='approved'?'مقبول':r.status==='rejected'?'مرفوض':'قيد المراجعة';row.append(left,status);box.append(row)})}catch(e){box.className='notice';box.textContent='تعذر تحميل الطلبات. تحقق من أسماء الأعمدة وسياسات RLS في deposit_requests.'}}
+async function loadTransactions(){const box=$('transactionHistory');if(!sb||!currentUser)return;try{const {data,error}=await sb.from('wallet_transactions').select('id,amount,currency,kind,description,created_at').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(20);if(error)throw error;if(!data||!data.length){box.className='empty';box.textContent='لا توجد حركات محفظة بعد.';return}box.className='';box.innerHTML='';data.forEach(t=>{const row=document.createElement('div');row.className='listrow';const left=document.createElement('div');const title=document.createElement('b');title.textContent=formatBalance(t.amount,t.currency);const detail=document.createElement('div');detail.className='muted';detail.textContent=t.description||t.kind||'حركة محفظة';left.append(title,detail);row.append(left);box.append(row)})}catch(e){box.className='empty';box.textContent='سجل الحركات غير متاح حالياً.'}}
+function renderCart(){$('cartItems').innerHTML='';if(!cart.length){$('cartItems').className='empty';$('cartItems').textContent='السلة فارغة حالياً.';$('cartTotal').textContent='$0.00';return} $('cartItems').className='';let total=0;cart.forEach((p,i)=>{total+=Number(p.price)||0;const row=document.createElement('div');row.className='listrow';const name=document.createElement('span');name.textContent=p.name;const right=document.createElement('div');right.style.textAlign='left';const price=document.createElement('b');price.textContent=money(p);const del=document.createElement('button');del.className='linkbtn danger';del.textContent='حذف';del.onclick=()=>{cart.splice(i,1);$('cartCount').textContent=cart.length;renderCart()};right.append(price,del);row.append(name,right);$('cartItems').append(row)});$('cartTotal').textContent='$'+total.toFixed(2)}
+$('cartTop').onclick=()=>showScreen('cart');$('checkoutBtn').onclick=()=>{if(!currentUser){showAuth('login');return}$('checkoutMessage').textContent='إتمام الطلب والدفع غير مفعّلين بعد. لا يتم خصم أي رصيد أو تنفيذ شحن من هذه الواجهة.';$('checkoutMessage').classList.remove('hidden')};
+$('searchBtn').onclick=()=>{const q=$('searchInput').value.trim().toLowerCase();renderProducts(products.filter(p=>(p.name+' '+p.category+' '+(p.description||'')).toLowerCase().includes(q)));$('productsSection').scrollIntoView({behavior:'smooth'})};$('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('searchBtn').click()});
 document.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{renderProducts(products.filter(p=>p.category===b.dataset.category));$('productsSection').scrollIntoView({behavior:'smooth'})});
 $('menuBtn').onclick=()=>showScreen('account');$('bellBtn').onclick=()=>toast('لا توجد إشعارات جديدة');
-$('supportForm').addEventListener('submit',e=>{e.preventDefault();if(!currentUser){showAuth('login');return}toast('نظام تذاكر الدعم لم يُفعّل بعد في قاعدة البيانات')});
-if(sb){sb.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;renderAccount();if(event==='PASSWORD_RECOVERY'){showAuth('reset');toast('عيّن كلمة سر جديدة من هنا')}})}
+$('supportForm').addEventListener('submit',e=>{e.preventDefault();const box=$('supportMessage');box.textContent=currentUser?'لم يتم ربط رسائل الدعم بقاعدة البيانات بعد. احتفظ بنص الرسالة وتواصل مع الدعم الرسمي.':'سجّل الدخول أولاً للتواصل مع الدعم.';box.classList.remove('hidden');if(!currentUser)showAuth('login')});
+if(sb){sb.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;renderAccount();if(currentUser)refreshWallet()})}
 loadProducts();refreshUser();renderAccount();
 </script>
-</body></html>
+</body>
+</html>
