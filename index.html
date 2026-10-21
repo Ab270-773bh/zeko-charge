@@ -95,7 +95,7 @@
 /* إعداد Supabase: ضع رابط مشروعك والمفتاح العام publishable/anon هنا فقط.
    لا تضع service_role key أبداً داخل HTML. */
 const SUPABASE_URL = 'https://hclijvtwwtnqbmnpyjkj.supabase.co';
-const SUPABASE_ANON_KEY = 'PASTE_YOUR_SUPABASE_ANON_KEY_HERE';
+const SUPABASE_ANON_KEY = 'sb_publishable_-Xy6srs_dD6cZvPsihUzuQ_jWXf6z1N';
 const configured = SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes('PASTE_');
 const sb = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const demoProducts = [
