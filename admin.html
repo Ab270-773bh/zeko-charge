@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>إدارة ZEKO CHARGE</title>
+  <style>
+    :root {
+      --primary: #7c3aed;
+      --bg: #0b0b12;
+      --panel: #171725;
+      --text: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 18px;
+      background: var(--bg); color: var(--text);
+      font-family: Arial, sans-serif;
+    }
+    main { max-width: 760px; margin: auto; }
+    h1 { color: #b69aff; }
+    section {
+      background: var(--panel); padding: 18px;
+      border-radius: 14px; margin: 16px 0;
+    }
+    input, select, button {
+      width: 100%; padding: 12px; margin: 6px 0;
+      border-radius: 8px; border: 1px solid #45455a;
+      font-size: 16px;
+    }
+    input, select { background: #10101a; color: white; }
+    button {
+      background: var(--primary); color: white;
+      border: 0; font-weight: bold; cursor: pointer;
+    }
+    .secondary { background: #343447; }
+    .item {
+      border: 1px solid #44445a; padding: 12px;
+      margin-top: 10px; border-radius: 10px;
+    }
+    .hidden { display: none; }
+    .hint { color: #c5c5d5; line-height: 1.7; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>ZEKO CHARGE</h1>
+  <p class="hint">لوحة إدارة المتجر</p>
+
+  <section id="setup">
+    <h2>إعداد الاتصال</h2>
+    <p class="hint">ضع رابط مشروع Supabase والمفتاح العام Publishable Key. لا تستخدم service_role أو Secret Key.</p>
+    <input id="url" placeholder="Supabase Project URL">
+    <input id="key" placeholder="Publishable Key أو anon key">
+    <button id="connect">الاتصال بالمشروع</button>
+    <p id="setupMsg" class="hint"></p>
+  </section>
+
+  <section id="login" class="hidden">
+    <h2>دخول المدير</h2>
+    <input id="email" type="email" placeholder="البريد الإلكتروني">
+    <input id="password" type="password" placeholder="كلمة السر" autocomplete="current-password">
+    <button id="signIn">تسجيل الدخول</button>
+    <button id="signOut" class="secondary hidden">تسجيل الخروج</button>
+    <p id="loginMsg" class="hint"></p>
+  </section>
+
+  <div id="dashboard" class="hidden">
+    <section>
+      <h2>إضافة منتج</h2>
+      <input id="productName" placeholder="اسم المنتج">
+      <input id="category" placeholder="التصنيف، مثلاً ألعاب">
+      <input id="price" type="number" min="0" step="0.01" placeholder="السعر">
+      <select id="currency">
+        <option value="USD">دولار أمريكي USD</option>
+        <option value="SYP">ليرة سورية SYP</option>
+      </select>
+      <input id="description" placeholder="وصف المنتج">
+      <input id="image" type="url" placeholder="رابط صورة المنتج (اختياري)">
+      <button id="addProduct">إضافة المنتج</button>
+      <p id="productMsg" class="hint"></p>
+    </section>
+
+    <section>
+      <h2>مظهر المتجر</h2>
+      <input id="storeName" placeholder="اسم المتجر">
+      <label for="primary">اللون الرئيسي</label>
+      <input id="primary" type="color" value="#7c3aed">
+      <label for="background">لون الخلفية</label>
+      <input id="background" type="color" value="#0b0b12">
+      <input id="logo" type="url" placeholder="رابط الشعار (اختياري)">
+      <input id="banner" type="url" placeholder="رابط صورة البنر (اختياري)">
+      <button id="saveAppearance">حفظ المظهر</button>
+      <p id="appearanceMsg" class="hint"></p>
+    </section>
+
+    <section>
+      <h2>المنتجات الحالية</h2>
+      <button id="refresh" class="secondary">تحديث القائمة</button>
+      <div id="products"></div>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+  import { createClient } from
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+  const $ = id => document.getElementById(id);
+  let db = null;
+
+  $("connect").onclick = async () => {
+    const url = $("url").value.trim();
+    const key = $("key").value.trim();
+    if (!url.startsWith("https://") || !key) {
+      $("setupMsg").textContent = "تأكد من رابط المشروع والمفتاح العام.";
+      return;
+    }
+    try {
+      db = createClient(url, key);
+      const { error } = await db.auth.getSession();
+      if (error) throw error;
+      $("setupMsg").textContent = "تم الاتصال. سجّل دخولك.";
+      $("login").classList.remove("hidden");
+      $("connect").textContent = "تم الاتصال";
+    } catch (e) {
+      $("setupMsg").textContent = "تعذر الاتصال: " + e.message;
+    }
+  };
+
+  $("signIn").onclick = async () => {
+    if (!db) return;
+    const { error } = await db.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
+    });
+    if (error) {
+      $("loginMsg").textContent = "فشل الدخول: " + error.message;
+      return;
+    }
+    $("loginMsg").textContent = "تم تسجيل الدخول، جارٍ فحص الصلاحيات...";
+    await checkAdmin();
+  };
+
+  async function checkAdmin() {
+    const { data: { user } } = await db.auth.getUser();
+    if (!user) return;
+    const { data, error } = await db.from("admins")
+      .select("user_id").eq("user_id", user.id).maybeSingle();
+
+    if (error || !data) {
+      $("dashboard").classList.add("hidden");
+      $("loginMsg").textContent =
+        "الحساب ليس مديراً أو تعذر التحقق من الصلاحيات.";
+      return;
+    }
+    $("dashboard").classList.remove("hidden");
+    $("signOut").classList.remove("hidden");
+    $("loginMsg").textContent = "أهلاً بك في لوحة الإدارة.";
+    await Promise.all([loadProducts(), loadAppearance()]);
+  }
+
+  $("signOut").onclick = async () => {
+    await db.auth.signOut();
+    $("dashboard").classList.add("hidden");
+    $("signOut").classList.add("hidden");
+    $("loginMsg").textContent = "تم تسجيل الخروج.";
+  };
+
+  $("addProduct").onclick = async () => {
+    const name = $("productName").value.trim();
+    const price = Number($("price").value);
+    if (!name || $("price").value === "" ||
+        !Number.isFinite(price) || price < 0) {
+      $("productMsg").textContent = "أدخل اسم المنتج وسعراً صحيحاً.";
+      return;
+    }
+    const { error } = await db.from("products").insert({
+      name,
+      category: $("category").value.trim() || "عام",
+      price,
+      currency: $("currency").value,
+      description: $("description").value.trim(),
+      image_url: $("image").value.trim(),
+      active: true
+    });
+    $("productMsg").textContent = error
+      ? "تعذر إضافة المنتج: " + error.message
+      : "تمت إضافة المنتج.";
+    if (!error) {
+      ["productName","category","price","description","image"]
+        .forEach(id => $(id).value = "");
+      await loadProducts();
+    }
+  };
+
+  async function loadProducts() {
+    const { data, error } = await db.from("products")
+      .select("*").order("created_at", { ascending: false });
+    if (error) {
+      $("products").textContent = "تعذر جلب المنتجات: " + error.message;
+      return;
+    }
+    $("products").replaceChildren();
+    data.forEach(p => {
+      const box = document.createElement("div");
+      box.className = "item";
+      const title = document.createElement("strong");
+      title.textContent = p.name;
+      const info = document.createElement("p");
+      info.textContent = `${p.price} ${p.currency} — ${p.category}`;
+      const edit = document.createElement("button");
+      edit.textContent = "تعديل الاسم والسعر";
+      edit.onclick = async () => {
+        const name = prompt("اسم المنتج:", p.name);
+        if (name === null) return;
+        const priceText = prompt("السعر:", String(p.price));
+        if (priceText === null) return;
+        const price = Number(priceText);
+        if (!name.trim() || !Number.isFinite(price) || price < 0) {
+          alert("الاسم أو السعر غير صحيح.");
+          return;
+        }
+        const { error } = await db.from("products")
+          .update({ name: name.trim(), price }).eq("id", p.id);
+        if (error) alert("تعذر التعديل: " + error.message);
+        else await loadProducts();
+      };
+      const toggle = document.createElement("button");
+      toggle.className = "secondary";
+      toggle.textContent = p.active ? "إخفاء المنتج" : "إظهار المنتج";
+      toggle.onclick = async () => {
+        const { error } = await db.from("products")
+          .update({ active: !p.active }).eq("id", p.id);
+        if (error) alert("تعذر تغيير الحالة: " + error.message);
+        else await loadProducts();
+      };
+      box.append(title, info, edit, toggle);
+      $("products").append(box);
+    });
+  }
+
+  async function loadAppearance() {
+    const { data, error } = await db.from("store_settings")
+      .select("*").eq("id", 1).maybeSingle();
+    if (error) {
+      $("appearanceMsg").textContent = "تعذر تحميل الإعدادات: " + error.message;
+      return;
+    }
+    if (!data) return;
+    $("storeName").value = data.store_name || "ZEKO CHARGE";
+    $("primary").value = data.primary_color || "#7c3aed";
+    $("background").value = data.background_color || "#0b0b12";
+    $("logo").value = data.logo_url || "";
+    $("banner").value = data.banner_url || "";
+  }
+
+  $("saveAppearance").onclick = async () => {
+    const { error } = await db.from("store_settings").upsert({
+      id: 1,
+      store_name: $("storeName").value.trim() || "ZEKO CHARGE",
+      primary_color: $("primary").value,
+      background_color: $("background").value,
+      logo_url: $("logo").value.trim(),
+      banner_url: $("banner").value.trim(),
+      updated_at: new Date().toISOString()
+    });
+    $("appearanceMsg").textContent = error
+      ? "تعذر حفظ المظهر: " + error.message
+      : "تم حفظ الإعدادات.";
+  };
+
+  $("refresh").onclick = loadProducts;
+</script>
+</body>
+</html>
