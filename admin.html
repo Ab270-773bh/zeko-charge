@@ -4,58 +4,161 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>إدارة ZEKO CHARGE</title>
-  <style>
-    :root {
-      --primary: #7c3aed;
-      --bg: #0b0b12;
-      --panel: #171725;
-      --text: #fff;
-    }
-    * { box-sizing: border-box; }
+  
+<style>
+  :root {
+    --primary: #d4af37;
+    --bg: #080d18;
+    --panel: #111a2b;
+    --text: #f8f5eb;
+    --gold-light: #f4d675;
+    --border: #344057;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 18px;
+    background:
+      radial-gradient(ellipse at top, #17243a 0%, #080d18 65%);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  main {
+    max-width: 760px;
+    margin: auto;
+  }
+
+  h1 {
+    color: var(--gold-light);
+    text-align: center;
+    font-size: clamp(26px, 6vw, 38px);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  h2 {
+    color: var(--gold-light);
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  .hint {
+    color: #b7c1d2;
+    line-height: 1.8;
+  }
+
+  main > p {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  section {
+    background: linear-gradient(145deg, #141f33, #0e1625);
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 18px;
+    margin: 18px 0;
+    box-shadow: 0 10px 28px #00000035;
+  }
+
+  input, select, button {
+    width: 100%;
+    padding: 13px;
+    margin: 7px 0;
+    border-radius: 10px;
+    border: 1px solid #3a4860;
+    font-size: 16px;
+    font-family: inherit;
+  }
+
+  input, select {
+    background: #090f1c;
+    color: #fff;
+    outline: none;
+  }
+
+  input:focus, select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px #d4af3725;
+  }
+
+  input[type="color"] {
+    height: 48px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  label {
+    display: block;
+    color: var(--gold-light);
+    margin-top: 10px;
+  }
+
+  button {
+    background: linear-gradient(135deg, #f4d675, #b88a19);
+    color: #111522;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+  }
+
+  button:active {
+    filter: brightness(0.88);
+  }
+
+  .secondary {
+    background: #202c40;
+    color: var(--gold-light);
+    border: 1px solid #665727;
+  }
+
+  .item {
+    background: #0b1322;
+    border: 1px solid #344057;
+    padding: 15px;
+    margin-top: 12px;
+    border-radius: 13px;
+    overflow-wrap: anywhere;
+  }
+
+  .item strong {
+    color: var(--gold-light);
+    font-size: 17px;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  #setupMsg, #loginMsg, #recoveryMsg,
+  #productMsg, #appearanceMsg {
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 480px) {
     body {
-      margin: 0;
-      padding: 18px;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, sans-serif;
+      padding: 10px;
     }
-    main { max-width: 760px; margin: auto; }
-    h1 { color: #b69aff; }
+
     section {
-      background: var(--panel);
-      padding: 18px;
+      padding: 15px;
       border-radius: 14px;
-      margin: 16px 0;
     }
+
     input, select, button {
-      width: 100%;
-      padding: 12px;
-      margin: 6px 0;
-      border-radius: 8px;
-      border: 1px solid #45455a;
       font-size: 16px;
     }
-    input, select {
-      background: #10101a;
-      color: white;
-    }
-    button {
-      background: var(--primary);
-      color: white;
-      border: 0;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .secondary { background: #343447; }
-    .item {
-      border: 1px solid #44445a;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 10px;
-    }
-    .hidden { display: none !important; }
-    .hint { color: #c5c5d5; line-height: 1.7; }
-  </style>
+  }
+</style>
+
 </head>
 <body>
 <main>
