@@ -192,8 +192,8 @@
       return;
     }
 
-    const redirectTo = window.location.origin +
-      window.location.pathname;
+    const redirectTo =
+      "https://ab270-773bh.github.io/zeko-charge/admin.html";
 
     const { error } = await db.auth.resetPasswordForEmail(email, {
       redirectTo
@@ -226,8 +226,10 @@
       return;
     }
 
-    const { data: sessionData } = await db.auth.getSession();
-    if (!sessionData.session) {
+    const { data: sessionData, error: sessionError } =
+      await db.auth.getSession();
+
+    if (sessionError || !sessionData.session) {
       $("recoveryMsg").textContent =
         "جلسة الاستعادة غير موجودة أو انتهت صلاحيتها. اطلب رابطاً جديداً.";
       return;
@@ -272,8 +274,10 @@
   };
 
   async function checkAdmin() {
-    const { data: { user } } = await db.auth.getUser();
-    if (!user) return;
+    const { data: { user }, error: userError } =
+      await db.auth.getUser();
+
+    if (userError || !user) return;
 
     const { data, error } = await db.from("admins")
       .select("user_id").eq("user_id", user.id).maybeSingle();
@@ -301,6 +305,8 @@
   $("addProduct").onclick = async () => {
     const name = $("productName").value.trim();
     const price = Number($("price").value);
+
+    if (!db) return;
 
     if (!name || $("price").value === "" ||
         !Number.isFinite(price) || price < 0) {
@@ -331,6 +337,8 @@
   };
 
   async function loadProducts() {
+    if (!db) return;
+
     const { data, error } = await db.from("products")
       .select("*").order("created_at", { ascending: false });
 
@@ -391,6 +399,8 @@
   }
 
   async function loadAppearance() {
+    if (!db) return;
+
     const { data, error } = await db.from("store_settings")
       .select("*").eq("id", 1).maybeSingle();
 
@@ -410,6 +420,8 @@
   }
 
   $("saveAppearance").onclick = async () => {
+    if (!db) return;
+
     const { error } = await db.from("store_settings").upsert({
       id: 1,
       store_name: $("storeName").value.trim() || "ZEKO CHARGE",
@@ -426,6 +438,18 @@
   };
 
   $("refresh").onclick = loadProducts;
+
+  // إذا فتح المستخدم رابط الاستعادة، أنشئ الاتصال تلقائياً
+  // حتى لا يحتاج للضغط على زر الاتصال أولاً.
+  if (window.location.hash.includes("type=recovery")) {
+    const savedUrl = "https://hclijvtwwtnqbmnpyjkj.supabase.co";
+    const savedKey =
+      "sb_publishable_-Xy6srs_dD6cZvPsihUzuQ_jWXf6z1N";
+
+    $("url").value = savedUrl;
+    $("key").value = savedKey;
+    $("connect").click();
+  }
 </script>
 </body>
-</html>
+        </html>
