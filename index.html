@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>ZEKO CHARGE | متجر الشحن</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1120;
+      color: #f8fafc;
+    }
+    header {
+      padding: 24px 16px;
+      text-align: center;
+      background: #111c30;
+      border-bottom: 1px solid #26344b;
+    }
+    .logo { font-size: 30px; font-weight: 900; color: #38bdf8; }
+    header p { color: #aab8cc; }
+    main { max-width: 650px; margin: auto; padding: 20px 16px; }
+    .hero {
+      padding: 24px 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg,#172c49,#123d53);
+      margin-bottom: 24px;
+    }
+    h2 { margin-top: 0; }
+    .products { display: grid; gap: 14px; }
+    .product {
+      padding: 18px;
+      background: #141f32;
+      border: 1px solid #283850;
+      border-radius: 14px;
+    }
+    .product p { color: #aab8cc; }
+    .tag { color: #38bdf8; font-size: 13px; }
+    button {
+      width: 100%;
+      padding: 13px;
+      border: 0;
+      border-radius: 10px;
+      background: #38bdf8;
+      color: #071321;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    footer { padding: 25px; text-align: center; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ZEKO CHARGE</div>
+    <p>متجرك للشحن الرقمي</p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>أهلاً بك في ZEKO CHARGE</h2>
+      <p>تصفّح خدمات الشحن الرقمي والألعاب ورصيد الهاتف.</p>
+    </section>
+
+    <h2>خدماتنا</h2>
+    <div class="products">
+      <article class="product">
+        <span class="tag">ألعاب</span>
+        <h3>شحن PUBG Mobile</h3>
+        <p>تُضاف الأسعار بعد إعداد لوحة الإدارة وربط المورّد.</p>
+        <button onclick="alert('سيتم تفعيل الطلبات بعد إعداد نظام الشحن الحقيقي.')">عرض الخدمة</button>
+      </article>
+
+      <article class="product">
+        <span class="tag">اتصالات</span>
+        <h3>رصيد Syriatel</h3>
+        <p>الخدمة قيد التجهيز.</p>
+        <button onclick="alert('سيتم تفعيل الخدمة بعد ربط مزوّد معتمد.')">عرض الخدمة</button>
+      </article>
+
+      <article class="product">
+        <span class="tag">اتصالات</span>
+        <h3>رصيد MTN</h3>
+        <p>الخدمة قيد التجهيز.</p>
+        <button onclick="alert('سيتم تفعيل الخدمة بعد ربط مزوّد معتمد.')">عرض الخدمة</button>
+      </article>
+    </div>
+  </main>
+
+  <footer>ZEKO CHARGE © 2026</footer>
+</body>
+</html>
