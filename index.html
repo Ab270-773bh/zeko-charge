@@ -2,94 +2,152 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101827">
-  <title>ZEKO CHARGE | متجر الشحن</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1120;
-      color: #f8fafc;
-    }
-    header {
-      padding: 24px 16px;
-      text-align: center;
-      background: #111c30;
-      border-bottom: 1px solid #26344b;
-    }
-    .logo { font-size: 30px; font-weight: 900; color: #38bdf8; }
-    header p { color: #aab8cc; }
-    main { max-width: 650px; margin: auto; padding: 20px 16px; }
-    .hero {
-      padding: 24px 18px;
-      border-radius: 18px;
-      background: linear-gradient(135deg,#172c49,#123d53);
-      margin-bottom: 24px;
-    }
-    h2 { margin-top: 0; }
-    .products { display: grid; gap: 14px; }
-    .product {
-      padding: 18px;
-      background: #141f32;
-      border: 1px solid #283850;
-      border-radius: 14px;
-    }
-    .product p { color: #aab8cc; }
-    .tag { color: #38bdf8; font-size: 13px; }
-    button {
-      width: 100%;
-      padding: 13px;
-      border: 0;
-      border-radius: 10px;
-      background: #38bdf8;
-      color: #071321;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    footer { padding: 25px; text-align: center; color: #94a3b8; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b14">
+<title>ZEKO CHARGE | متجر الشحن الرقمي</title>
+<style>
+:root{--bg:#070a12;--panel:#101a2c;--gold:#f5c84c;--gold2:#ffe9a0;--muted:#a5b1c5;--line:#283650}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% -10%,#293752 0,transparent 45%),var(--bg);color:#f7f8fc;font-family:system-ui,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.wrap{width:min(1120px,calc(100% - 26px));margin:auto}
+header{position:sticky;top:0;z-index:10;background:#080c16ed;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff12}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:9px}
+.logo{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#fff0a6,#d59b1d);color:#111;font-weight:1000;font-size:25px;box-shadow:0 0 24px #f5c84c38}
+.brand b{display:block;font-size:18px;letter-spacing:1px}
+.brand small{display:block;color:var(--gold);letter-spacing:3px;font-size:10px}
+.navbtn{background:#111b2d;border:1px solid var(--line);color:#fff;border-radius:12px;padding:10px 12px}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin-top:22px;min-height:330px;border-radius:25px;border:1px solid #f5c84c50;display:flex;align-items:center;background:#111b2d}
+.hero:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#080c16 0%,#0b1220d9 48%,#080c1650),url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=85') center/cover;animation:zoom 16s ease-in-out infinite alternate}
+.hero:after{content:"";position:absolute;inset:-60%;z-index:-1;background:linear-gradient(110deg,transparent 43%,#ffe9a01a 50%,transparent 57%);animation:shine 7s linear infinite}
+.herotext{padding:27px;max-width:610px}
+.eyebrow{font-size:12px;color:var(--gold);font-weight:900;letter-spacing:2px}
+h1{font-size:clamp(34px,7vw,59px);line-height:1.17;margin:12px 0}
+h1 span{color:var(--gold)}
+.herotext p{color:#c0cada;line-height:1.9}
+.goldbtn{display:inline-block;background:linear-gradient(110deg,var(--gold2),#e3a922);border:0;border-radius:12px;padding:13px 20px;color:#15120a;font-weight:900;cursor:pointer;box-shadow:0 7px 25px #f5c84c27}
+.section{padding-top:31px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}
+h2{font-size:21px;margin:0}
+.head small{color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.cat{background:linear-gradient(145deg,#17233a,#0d1422);border:1px solid var(--line);border-radius:15px;padding:15px 4px;text-align:center;cursor:pointer;transition:.2s}
+.cat:active,.cat:hover{border-color:var(--gold);transform:translateY(-3px)}
+.cat span{display:block;font-size:27px;margin-bottom:7px}
+.cat b{font-size:12px}
+.search{display:flex;gap:8px;margin:22px 0 0}
+.search input{width:100%;min-width:0;background:#101827;border:1px solid var(--line);border-radius:12px;padding:13px;color:white;outline:none}
+.search input:focus{border-color:var(--gold)}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.card{min-width:0;overflow:hidden;border-radius:17px;background:linear-gradient(150deg,#152137,#0d1421);border:1px solid var(--line);transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-4px);border-color:#d6ac42}
+.art{height:135px;position:relative;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle,#314361,#101827 70%)}
+.art img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .art img{transform:scale(1.08)}
+.art .emoji{font-size:43px;filter:drop-shadow(0 0 15px #f5c84c55)}
+.info{padding:12px}
+.tag{font-size:10px;color:var(--gold);font-weight:800}
+.info h3{font-size:14px;margin:5px 0}
+.info p{font-size:11px;color:var(--muted);line-height:1.6;min-height:34px;margin:5px 0}
+.price{font-size:17px;color:var(--gold2);font-weight:900;margin:10px 0}
+.info button{width:100%;font-size:12px;padding:11px 4px}
+.empty{display:none;color:var(--muted);text-align:center;padding:30px}
+.promo{margin-top:30px;padding:23px;border:1px solid #f5c84c45;border-radius:20px;background:linear-gradient(110deg,#29200e,#121a2a 75%);display:flex;align-items:center;justify-content:space-between;gap:15px}
+.promo p{color:var(--muted);font-size:13px;line-height:1.7}
+footer{text-align:center;padding:30px 10px 90px;color:#8492a8;font-size:12px}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:15;background:#080c16f5;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 3px calc(10px + env(safe-area-inset-bottom))}
+.bottom a{text-align:center;font-size:11px;color:#aab6ca;min-width:55px}
+.bottom span{display:block;font-size:20px;margin-bottom:3px}
+.bottom a:first-child{color:var(--gold)}
+@keyframes shine{from{transform:translateX(-30%)}to{transform:translateX(30%)}}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.09)}}
+@media(min-width:700px){.hero{min-height:390px}.products{grid-template-columns:repeat(4,minmax(0,1fr))}.art{height:175px}}
+@media(max-width:380px){.categories{grid-template-columns:repeat(2,minmax(0,1fr))}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{min-height:300px}.herotext{padding:20px}.art{height:110px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="logo">ZEKO CHARGE</div>
-    <p>متجرك للشحن الرقمي</p>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h2>أهلاً بك في ZEKO CHARGE</h2>
-      <p>تصفّح خدمات الشحن الرقمي والألعاب ورصيد الهاتف.</p>
-    </section>
-
-    <h2>خدماتنا</h2>
-    <div class="products">
-      <article class="product">
-        <span class="tag">ألعاب</span>
-        <h3>شحن PUBG Mobile</h3>
-        <p>تُضاف الأسعار بعد إعداد لوحة الإدارة وربط المورّد.</p>
-        <button onclick="alert('سيتم تفعيل الطلبات بعد إعداد نظام الشحن الحقيقي.')">عرض الخدمة</button>
-      </article>
-
-      <article class="product">
-        <span class="tag">اتصالات</span>
-        <h3>رصيد Syriatel</h3>
-        <p>الخدمة قيد التجهيز.</p>
-        <button onclick="alert('سيتم تفعيل الخدمة بعد ربط مزوّد معتمد.')">عرض الخدمة</button>
-      </article>
-
-      <article class="product">
-        <span class="tag">اتصالات</span>
-        <h3>رصيد MTN</h3>
-        <p>الخدمة قيد التجهيز.</p>
-        <button onclick="alert('سيتم تفعيل الخدمة بعد ربط مزوّد معتمد.')">عرض الخدمة</button>
-      </article>
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand"><span class="logo">Z</span><span><b>ZEKO</b><small>CHARGE</small></span></a>
+    <div style="display:flex;gap:8px">
+      <a class="navbtn" href="#products">⌕ البحث</a>
+      <a class="navbtn" href="admin.html">♙ الإدارة</a>
     </div>
-  </main>
+  </div>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div class="herotext">
+      <div class="eyebrow">✦ YOUR DIGITAL WORLD ✦</div>
+      <h1>اشحن لعبتك<br><span>وارفع مستواك</span></h1>
+      <p>اكتشف عالم الشحن الرقمي والألعاب والبطاقات، بتجربة بسيطة مصممة لهاتفك.</p>
+      <a href="#products" class="goldbtn">استكشف المنتجات　↙</a>
+    </div>
+  </section>
 
-  <footer>ZEKO CHARGE © 2026</footer>
+  <section class="section">
+    <div class="head"><h2>التصنيفات</h2><small>اختر عالمك</small></div>
+    <div class="categories">
+      <button class="cat" data-category="ألعاب"><span>🎮</span><b>الألعاب</b></button>
+      <button class="cat" data-category="اتصالات"><span>📱</span><b>رصيد الهاتف</b></button>
+      <button class="cat" data-category="بطاقات"><span>💳</span><b>بطاقات رقمية</b></button>
+      <button class="cat" data-category="الكل"><span>✦</span><b>كل الخدمات</b></button>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="head"><h2>✦ منتجات المتجر</h2><small id="count">اكتشف المنتجات</small></div>
+    <div class="search"><input id="search" type="search" placeholder="ابحث عن لعبة أو خدمة..." aria-label="البحث عن المنتجات"></div>
+    <div class="products" id="productList"></div>
+    <div class="empty" id="empty">ما لقينا منتجات مطابقة لبحثك.</div>
+  </section>
+
+  <section class="promo">
+    <div><div class="eyebrow">ZEKO CHARGE</div><h2>عالمك الرقمي بانتظارك</h2><p>تصفح المنتجات واختر الخدمة التي تبحث عنها.</p></div>
+    <a href="#products" class="goldbtn">تسوّق الآن ↗</a>
+  </section>
+</main>
+<footer>ZEKO CHARGE © <span id="year"></span><br>متجر الشحن الرقمي</footer>
+<nav class="bottom">
+  <a href="#"><span>⌂</span>الرئيسية</a>
+  <a href="#products"><span>▦</span>المنتجات</a>
+  <a href="admin.html"><span>♙</span>الإدارة</a>
+</nav>
+<script>
+const demoProducts=[
+ {name:"شحن PUBG Mobile",category:"ألعاب",description:"باقات شحن شدات اللعبة",price:"حسب الباقة",currency:"USD",emoji:"🎯",image:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"},
+ {name:"Mobile Legends",category:"ألعاب",description:"منتجات اللعبة الرقمية",price:"حسب الباقة",currency:"USD",emoji:"⚔️",image:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80"},
+ {name:"Free Fire",category:"ألعاب",description:"باقات اللعبة الرقمية",price:"حسب الباقة",currency:"USD",emoji:"🔥",image:"https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=600&q=80"},
+ {name:"رصيد Syriatel",category:"اتصالات",description:"خدمة رصيد الهاتف",price:"حسب الفئة",currency:"SYP",emoji:"📱",image:""},
+ {name:"رصيد MTN",category:"اتصالات",description:"خدمة رصيد الهاتف",price:"حسب الفئة",currency:"SYP",emoji:"📲",image:""},
+ {name:"بطاقات رقمية",category:"بطاقات",description:"أضف تفاصيل البطاقة وسعرها من الإدارة",price:"حسب البطاقة",currency:"USD",emoji:"💳",image:""}
+];
+let products=[...demoProducts],category="الكل";
+const list=document.getElementById("productList");
+const search=document.getElementById("search");
+function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){
+ const q=search.value.trim().toLowerCase();
+ const filtered=products.filter(p=>(category==="الكل"||p.category===category)&&[p.name,p.category,p.description].join(" ").toLowerCase().includes(q));
+ document.getElementById("count").textContent=filtered.length+" منتجات";
+ document.getElementById("empty").style.display=filtered.length?"none":"block";
+ list.innerHTML=filtered.map(p=>`<article class="card">
+ <div class="art">${p.image?`<img src="${safe(p.image)}" alt="" loading="lazy" onerror="this.remove()">`:`<span class="emoji">${safe(p.emoji||"✦")}</span>`}</div>
+ <div class="info"><span class="tag">${safe(p.category||"خدمات رقمية")}</span>
+ <h3>${safe(p.name)}</h3><p>${safe(p.description||"منتج رقمي من متجر ZEKO CHARGE")}</p>
+ <div class="price">${safe(p.price)} ${safe(p.currency||"")}</div>
+ <button class="goldbtn" onclick="order('${safe(p.name).replace(/'/g,"&#39;")}')">عرض الخدمة　↗</button></div></article>`).join("");
+}
+function order(name){alert("اخترت: "+name+"\nالطلب والشحن الحقيقي غير مفعّلين بعد. لا تدفع قبل إعداد خدمة الشحن.");}
+search.addEventListener("input",render);
+document.querySelectorAll(".cat").forEach(b=>b.addEventListener("click",()=>{category=b.dataset.category;document.querySelectorAll(".cat").forEach(x=>x.style.borderColor=x===b?"#f5c84c":"");render();document.getElementById("products").scrollIntoView({behavior:"smooth"})}));
+document.getElementById("year").textContent=new Date().getFullYear();
+render();
+</script>
 </body>
 </html>
