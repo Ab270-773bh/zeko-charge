@@ -1,303 +1,245 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>إدارة ZEKO CHARGE</title>
-  <style>
-    :root{--primary:#d4af37;--bg:#080d18;--panel:#111a2b;--text:#f8f5eb;--gold-light:#f4d675;--border:#344057}
-    *{box-sizing:border-box}
-    body{margin:0;padding:18px;background:radial-gradient(ellipse at top,#17243a 0%,#080d18 65%);color:var(--text);font-family:Arial,sans-serif;line-height:1.6;min-height:100vh}
-    main{max-width:760px;margin:auto}
-    h1{color:var(--gold-light);text-align:center;font-size:clamp(26px,6vw,38px);letter-spacing:1px;margin-bottom:4px}
-    h2{color:var(--gold-light);font-size:20px;margin-top:0}
-    .hint{color:#b7c1d2;line-height:1.8}
-    main>p{text-align:center;margin-top:0}
-    section{background:linear-gradient(145deg,#141f33,#0e1625);border:1px solid var(--border);padding:20px;border-radius:18px;margin:18px 0;box-shadow:0 10px 28px #00000035}
-    input,select,button{width:100%;padding:13px;margin:7px 0;border-radius:10px;border:1px solid #3a4860;font-size:16px;font-family:inherit}
-    input,select{background:#090f1c;color:#fff;outline:none}
-    input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 2px #d4af3725}
-    input[type=color]{height:48px;padding:5px;cursor:pointer}
-    label{display:block;color:var(--gold-light);margin-top:10px}
-    button{background:linear-gradient(135deg,#f4d675,#b88a19);color:#111522;border:none;font-weight:bold;cursor:pointer}
-    button:active{filter:brightness(.88)}
-    .secondary{background:#202c40;color:var(--gold-light);border:1px solid #665727}
-    .danger{background:#4a1d2a;color:#fff;border:1px solid #8f354a}
-    .item{background:#0b1322;border:1px solid #344057;padding:15px;margin-top:12px;border-radius:13px;overflow-wrap:anywhere}
-    .item strong{color:var(--gold-light);font-size:17px}
-    .hidden{display:none!important}
-    #setupMsg,#loginMsg,#recoveryMsg,#productMsg,#appearanceMsg,#depositMsg{overflow-wrap:anywhere}
-    .status{display:inline-block;padding:3px 9px;border-radius:7px;background:#243149;color:#f4d675;font-size:13px}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .actions button{margin:4px 0}
-    .small{font-size:13px;color:#b7c1d2}
-    @media(max-width:480px){body{padding:10px}section{padding:15px;border-radius:14px}input,select,button{font-size:16px}.actions{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZEKO CHARGE | مركز الإدارة</title>
+<style>
+:root{--bg:#070b14;--panel:#101a2b;--panel2:#0b1322;--gold:#f5c84b;--gold2:#c99519;--text:#f7f4ea;--muted:#aab7cb;--line:#27364e;--green:#36d399;--red:#fb7185;--blue:#70b7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1d3150 0,#070b14 55%);color:var(--text);font-family:Arial,Tahoma,sans-serif;line-height:1.6;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.shell{max-width:1150px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--line);background:#0b1322dd;border-radius:20px;position:sticky;top:8px;z-index:5;backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px}.bolt{display:grid;place-items:center;width:45px;height:45px;border-radius:14px;background:linear-gradient(145deg,#ffe88b,#c18a10);color:#15120a;font-size:28px;font-weight:900;box-shadow:0 0 22px #e9b83338}.brand b{display:block;color:var(--gold);font-size:20px;letter-spacing:1px}.brand small{color:var(--muted)}.top-actions{display:flex;gap:8px;align-items:center}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-size:12px}
+.hero{margin:20px 0;padding:25px;border:1px solid #5b4a1d;border-radius:24px;background:linear-gradient(120deg,#111c2f,#0b1220 65%,#29200a);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:200px;height:200px;border-radius:50%;background:#f5c84b12;left:-45px;top:-70px}.hero h1{font-size:clamp(25px,5vw,42px);line-height:1.2;margin:0 0 10px}.gold{color:var(--gold)}.hero p{color:var(--muted);margin:0;max-width:700px}.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;position:relative;z-index:1}
+.btn{background:linear-gradient(135deg,#ffe58a,#d3a32c);color:#19150b;font-weight:800;padding:11px 15px;border-radius:12px}.btn.secondary{background:#1a2940;color:var(--text);border:1px solid #384967}.btn.danger{background:#411b29;color:#ffdce2;border:1px solid #8c3047}.btn:disabled{opacity:.5;cursor:wait}
+input,select,textarea{width:100%;background:#080f1c;border:1px solid #34445e;color:var(--text);border-radius:12px;padding:12px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px #f5c84b18}label{display:block;color:#e9d58e;margin:10px 0 5px;font-size:14px}.hint{color:var(--muted);font-size:13px}.notice{padding:12px 14px;border:1px solid #5c4b22;border-radius:13px;background:#2b230f55;color:#f7dfa0;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:15px 0}.stat{background:linear-gradient(145deg,#142138,#0c1423);border:1px solid var(--line);border-radius:18px;padding:16px}.stat span{color:var(--muted);font-size:13px}.stat strong{display:block;font-size:25px;color:var(--gold);margin-top:6px;overflow-wrap:anywhere}
+.nav{display:flex;gap:8px;overflow-x:auto;padding:5px 0 12px;margin:10px 0}.nav button{white-space:nowrap;background:#101a2b;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:11px 14px}.nav button.active{background:linear-gradient(135deg,#ffe58a,#d3a32c);color:#17130a;font-weight:bold;border-color:transparent}
+.panel{background:linear-gradient(145deg,#121e31,#0c1422);border:1px solid var(--line);border-radius:20px;padding:19px;margin:13px 0}.panel h2{margin:0 0 12px;color:var(--gold);font-size:21px}.panel h3{margin:0 0 8px}.hidden{display:none!important}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 13px}.wide{grid-column:1/-1}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{background:#080f1c;border:1px solid var(--line);border-radius:15px;padding:14px;min-width:0;overflow-wrap:anywhere}.item strong{color:#f5d775}.item p{color:var(--muted);font-size:13px;white-space:pre-line}.item img,.preview{max-width:100%;max-height:160px;object-fit:contain;border-radius:10px;margin:7px 0}.badge{display:inline-block;border:1px solid #665525;background:#2a230f;color:#f9d66c;border-radius:999px;padding:3px 9px;font-size:12px}.actions{display:flex;gap:7px;flex-wrap:wrap}.actions .btn{flex:1;min-width:120px}.uploadbox{border:1px dashed #5c6b84;border-radius:14px;padding:12px;background:#0a1220}.uploadbox input{padding:9px}.uploadrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}.footer{color:#77869c;text-align:center;font-size:12px;padding:25px}
+#loginWrap{max-width:480px;margin:8vh auto}.statusmsg{min-height:24px;color:var(--gold)}.dangertext{color:#ffb1bf}
+@media(max-width:700px){.shell{padding:10px}.top{padding:11px}.brand b{font-size:17px}.pill{display:none}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cards,.formgrid,.uploadrow{grid-template-columns:1fr}.wide{grid-column:auto}.panel{padding:14px}.hero{padding:20px}.stat strong{font-size:22px}}
+</style>
 </head>
 <body>
-<main>
-  <h1>ZEKO CHARGE</h1>
-  <p class="hint">لوحة إدارة المتجر</p>
+<div class="shell">
+<header class="top">
+  <div class="brand"><div class="bolt">ϟ</div><div><b>ZEKO CHARGE</b><small>مركز الإدارة والتحكم</small></div></div>
+  <div class="top-actions"><span class="pill">لوحة آمنة · مدير المتجر</span><button id="logoutTop" class="btn secondary hidden">خروج</button></div>
+</header>
 
-  <section id="setup">
-    <h2>إعداد الاتصال</h2>
-    <p class="hint">أدخل رابط مشروع Supabase والمفتاح العام Publishable Key أو anon فقط. لا تستخدم service_role أو Secret Key.</p>
-    <input id="url" placeholder="Supabase Project URL" autocomplete="url">
-    <input id="key" placeholder="Publishable Key أو anon key" autocomplete="off">
-    <button id="connect">الاتصال بالمشروع</button>
-    <p id="setupMsg" class="hint"></p>
-  </section>
+<section id="loginWrap" class="panel">
+  <h2>🔐 دخول المدير</h2>
+  <p class="hint">اتصل بمشروع Supabase باستخدام الرابط والمفتاح العام فقط. لا تضع Secret أو service_role key هنا.</p>
+  <label>رابط مشروع Supabase</label><input id="url" value="https://hclijvtwwtnqbmnpyjkj.supabase.co" placeholder="https://....supabase.co">
+  <label>المفتاح العام Publishable أو anon</label><input id="key" placeholder="sb_publishable_... أو anon key" autocomplete="off">
+  <label>البريد الإلكتروني</label><input id="email" type="email" autocomplete="username">
+  <label>كلمة المرور</label><input id="password" type="password" autocomplete="current-password">
+  <button id="loginBtn" class="btn" style="width:100%;margin-top:12px">دخول إلى لوحة الإدارة</button>
+  <p id="loginMsg" class="statusmsg"></p>
+  <p class="hint">المفتاح العام ليس كلمة مرور. لا ترسل كلمة المرور أو المفاتيح السرية لأي شخص.</p>
+</section>
 
-  <section id="login" class="hidden">
-    <h2>دخول المدير</h2>
-    <input id="email" type="email" placeholder="البريد الإلكتروني" autocomplete="username">
-    <input id="password" type="password" placeholder="كلمة السر" autocomplete="current-password">
-    <button id="signIn">تسجيل الدخول</button>
-    <button id="forgotPassword" class="secondary">نسيت كلمة السر؟</button>
-    <button id="signOut" class="secondary hidden">تسجيل الخروج</button>
-    <p id="loginMsg" class="hint"></p>
-  </section>
-
-  <section id="recovery" class="hidden">
-    <h2>تعيين كلمة سر جديدة</h2>
-    <p class="hint">أدخل كلمة سر جديدة لا تقل عن 8 أحرف.</p>
-    <input id="newPassword" type="password" placeholder="كلمة السر الجديدة" autocomplete="new-password">
-    <input id="confirmPassword" type="password" placeholder="تأكيد كلمة السر الجديدة" autocomplete="new-password">
-    <button id="savePassword">حفظ كلمة السر الجديدة</button>
-    <p id="recoveryMsg" class="hint"></p>
-  </section>
-
-  <div id="dashboard" class="hidden">
-    <section>
-      <h2>طلبات الإيداع</h2>
-      <p class="hint">راجع بيانات التحويل وتأكد من وصول المال فعلياً قبل الموافقة. صورة الإيصال وحدها لا تثبت وصول المال.</p>
-      <button id="refreshDeposits" class="secondary">تحديث طلبات الإيداع</button>
-      <p id="depositMsg" class="hint"></p>
-      <div id="deposits"></div>
-    </section>
-
-    <section>
-      <h2>إضافة منتج</h2>
-      <input id="productName" placeholder="اسم المنتج">
-      <input id="category" placeholder="التصنيف، مثلاً ألعاب">
-      <input id="price" type="number" min="0" step="0.01" placeholder="السعر">
-      <select id="currency"><option value="USD">دولار أمريكي USD</option><option value="SYP">ليرة سورية SYP</option></select>
-      <input id="description" placeholder="وصف المنتج">
-      <input id="image" type="url" placeholder="رابط صورة المنتج (اختياري)">
-      <button id="addProduct">إضافة المنتج</button>
-      <p id="productMsg" class="hint"></p>
-    </section>
-
-    <section>
-      <h2>مظهر المتجر</h2>
-      <input id="storeName" placeholder="اسم المتجر">
-      <label for="primary">اللون الرئيسي</label><input id="primary" type="color" value="#d4af37">
-      <label for="background">لون الخلفية</label><input id="background" type="color" value="#080d18">
-      <input id="logo" type="url" placeholder="رابط الشعار (اختياري)">
-      <input id="banner" type="url" placeholder="رابط صورة البنر (اختياري)">
-      <button id="saveAppearance">حفظ المظهر</button>
-      <p id="appearanceMsg" class="hint"></p>
-    </section>
-
-    <section>
-      <h2>المنتجات الحالية</h2>
-      <button id="refresh" class="secondary">تحديث القائمة</button>
-      <div id="products"></div>
-    </section>
+<div id="app" class="hidden">
+<section class="hero">
+  <h1>مركز التحكم <span class="gold">ZEKO CHARGE</span></h1>
+  <p>إدارة المنتجات والأسعار، واجهة المتجر، الفيديو الترويجي، طلبات الإيداع وفريق الدعم من مكان واحد.</p>
+  <div class="hero-actions"><button class="btn" data-tab="deposits">مراجعة الإيداعات</button><button class="btn secondary" data-tab="products">إدارة المنتجات</button><button class="btn secondary" data-tab="appearance">مظهر الصفحة الرئيسية</button></div>
+</section>
+<div class="grid">
+  <div class="stat"><span>طلبات إيداع معلّقة</span><strong id="statPending">—</strong></div>
+  <div class="stat"><span>منتجات محمّلة</span><strong id="statProducts">—</strong></div>
+  <div class="stat"><span>طلبات دعم</span><strong id="statSupport">—</strong></div>
+  <div class="stat"><span>حالة الاتصال</span><strong style="font-size:18px;color:var(--green)">متصل</strong></div>
+</div>
+<div class="notice">تنبيه أمان: وافق على الإيداع فقط بعد التأكد من وصول المال فعلياً إلى حسابك. هذه اللوحة لا تؤكد تحويلات Binance أو شام كاش تلقائياً؛ لا يوجد مزود دفع API مربوط حتى الآن.</div>
+<nav class="nav">
+<button class="active" data-tab="overview">نظرة عامة</button><button data-tab="deposits">💰 طلبات الإيداع</button><button data-tab="products">🎮 المنتجات والأسعار</button><button data-tab="appearance">🖼️ مظهر المتجر</button><button data-tab="support">🎧 فريق الدعم</button><button data-tab="settings">⚙️ إعدادات الاتصال</button>
+</nav>
+<section id="tab-overview" class="panel">
+  <h2>أهلاً بك في لوحة ZEKO CHARGE</h2>
+  <p class="hint">استخدم الأقسام بالأعلى. ستظهر الطلبات عندما يرسلها الزبائن من واجهة المتجر، وبعد ربط نموذج الإيداع والدعم بقاعدة البيانات.</p>
+  <div class="cards">
+    <div class="item"><strong>💰 الإيداعات</strong><p>عرض الطلبات المعلّقة، ومراجعة رقم التحويل، ثم الموافقة أو الرفض.</p><button class="btn secondary" data-tab="deposits">فتح الإيداعات</button></div>
+    <div class="item"><strong>🛍️ المنتجات</strong><p>إضافة المنتجات وتعديل السعر والتصنيف وصورة المنتج من ملف الهاتف.</p><button class="btn secondary" data-tab="products">فتح المنتجات</button></div>
+    <div class="item"><strong>🎬 واجهة المتجر</strong><p>رفع صورة أو فيديو قصير للواجهة الرئيسية وتغيير الألوان والشعار.</p><button class="btn secondary" data-tab="appearance">تخصيص الواجهة</button></div>
+    <div class="item"><strong>🎧 فريق الدعم</strong><p>عرض تذاكر الدعم إذا كان جدول support_tickets مجهزاً في Supabase.</p><button class="btn secondary" data-tab="support">فتح الدعم</button></div>
   </div>
-</main>
+</section>
+
+<section id="tab-deposits" class="panel hidden">
+  <div class="row"><h2>💰 طلبات الإيداع</h2><button id="refreshDeposits" class="btn secondary">تحديث</button></div>
+  <p class="hint">راجع المبلغ والعملة وطريقة الدفع ورقم العملية. إثبات التحويل وحده لا يكفي؛ تأكد من وصول المبلغ بنفسك.</p>
+  <p id="depositMsg" class="statusmsg"></p><div id="deposits" class="cards"></div>
+</section>
+
+<section id="tab-products" class="panel hidden">
+  <h2>🎮 المنتجات والأسعار</h2>
+  <form id="productForm">
+    <div class="formgrid">
+      <div><label>اسم المنتج</label><input id="pName" required placeholder="مثلاً PUBG Mobile UC"></div>
+      <div><label>التصنيف</label><input id="pCategory" placeholder="ألعاب، تطبيقات، اتصالات..."></div>
+      <div><label>سعر البيع</label><input id="pPrice" type="number" min="0" step="0.01" required placeholder="0.00"></div>
+      <div><label>العملة</label><select id="pCurrency"><option value="USD">دولار USD</option><option value="SYP">ليرة سورية SYP</option></select></div>
+      <div class="wide"><label>الوصف / الكمية</label><textarea id="pDescription" rows="2" placeholder="مثلاً: 60 UC — التسليم بعد تأكيد الطلب"></textarea></div>
+      <div class="wide uploadbox"><label>رفع صورة المنتج من الهاتف</label><input id="pImageFile" type="file" accept="image/*"><p class="hint">تحتاج إلى إنشاء Storage bucket باسم store-media وجعله مناسباً للصور العامة للمنتجات، مع سياسات رفع آمنة.</p></div>
+    </div>
+    <button class="btn" type="submit" id="saveProduct">حفظ المنتج</button><p id="productMsg" class="statusmsg"></p>
+  </form>
+  <hr style="border-color:var(--line);margin:20px 0">
+  <div class="row"><h3>قائمة المنتجات</h3><button id="refreshProducts" class="btn secondary">تحديث القائمة</button></div>
+  <div id="products" class="cards"></div>
+</section>
+
+<section id="tab-appearance" class="panel hidden">
+  <h2>🖼️ مظهر الصفحة الرئيسية</h2>
+  <p class="hint">يمكنك اختيار صورة أو فيديو قصير من ملفات الهاتف. الملفات تُرفع إلى Supabase Storage، وبعدها تحفظ بيانات البنر في إعدادات المتجر. قد يلزم تعديل index.html ليعرض الفيديو بدلاً من الصورة.</p>
+  <div class="formgrid">
+    <div class="wide"><label>اسم المتجر</label><input id="sName" value="ZEKO CHARGE"></div>
+    <div><label>اللون الرئيسي</label><input id="sPrimary" type="color" value="#f5c84b"></div>
+    <div><label>لون الخلفية</label><input id="sBackground" type="color" value="#080d18"></div>
+    <div class="wide"><label>رفع صورة أو فيديو قصير للواجهة الرئيسية</label><div class="uploadbox"><input id="bannerFile" type="file" accept="image/*,video/mp4,video/webm,video/quicktime"><p class="hint">الأفضل فيديو MP4 قصير وخفيف. يلزم إنشاء bucket باسم store-media قبل الرفع.</p><div id="bannerPreview"></div></div></div>
+    <div class="wide"><label>رفع شعار المتجر (اختياري)</label><div class="uploadbox"><input id="logoFile" type="file" accept="image/*"><div id="logoPreview"></div></div></div>
+  </div>
+  <button id="saveAppearance" class="btn">حفظ إعدادات المظهر</button><p id="appearanceMsg" class="statusmsg"></p>
+</section>
+
+<section id="tab-support" class="panel hidden">
+  <div class="row"><h2>🎧 فريق الدعم</h2><button id="refreshSupport" class="btn secondary">تحديث</button></div>
+  <p class="hint">يعرض التذاكر من جدول support_tickets إن كان موجوداً. إدارة الرسائل والردود تحتاج تجهيز جدول support_messages وسياساته.</p>
+  <p id="supportMsg" class="statusmsg"></p><div id="supportList" class="cards"></div>
+</section>
+
+<section id="tab-settings" class="panel hidden">
+  <h2>⚙️ إعدادات الاتصال</h2><p class="hint">يُستخدم المفتاح العام فقط. لا تضع أبداً service_role أو Secret Key في صفحة ويب.</p>
+  <label>Supabase URL</label><input id="settingsUrl" readonly>
+  <p class="hint">لتغيير المشروع سجّل الخروج ثم حدّث بيانات الاتصال في شاشة الدخول.</p>
+  <button id="logout" class="btn danger">تسجيل الخروج</button>
+</section>
+</div>
+<div class="footer">ZEKO CHARGE · لوحة الإدارة · لا تشارك مفاتيح سرية أو بيانات دخولك</div>
+</div>
 
 <script type="module">
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-const $ = id => document.getElementById(id);
-let db = null;
-let recoveryMode = false;
-
-$("connect").onclick = async () => {
-  const url = $("url").value.trim(), key = $("key").value.trim();
-  if (!url.startsWith("https://") || !key) { $("setupMsg").textContent = "تأكد من رابط المشروع والمفتاح العام."; return; }
-  try {
-    db = createClient(url, key);
-    const { data, error } = await db.auth.getSession();
-    if (error) throw error;
-    $("setupMsg").textContent = "تم الاتصال بنجاح.";
-    $("login").classList.remove("hidden");
-    $("connect").textContent = "تم الاتصال";
-    if (window.location.hash.includes("error_description=")) {
-      $("setupMsg").textContent = "تعذر فتح رابط الاستعادة. اطلب رابطاً جديداً.";
-    } else if (window.location.hash.includes("type=recovery")) {
-      recoveryMode = true;
-      $("recovery").classList.remove("hidden");
-      $("loginMsg").textContent = data.session ? "تم التحقق من رابط الاستعادة. عيّن كلمة السر الجديدة." : "لم يتم العثور على جلسة استعادة. قد تحتاج إلى رابط جديد.";
-    } else if (data.session) await checkAdmin();
-  } catch(e) { $("setupMsg").textContent = "تعذر الاتصال: " + e.message; }
-};
-
-$("forgotPassword").onclick = async () => {
-  if (!db) { $("loginMsg").textContent = "اتصل بالمشروع أولاً."; return; }
-  const email = $("email").value.trim();
-  if (!email) { $("loginMsg").textContent = "أدخل بريدك الإلكتروني أولاً."; return; }
-  const redirectTo = "https://ab270-773bh.github.io/zeko-charge/admin.html";
-  const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo });
-  $("loginMsg").textContent = error ? "تعذر إرسال الرسالة: " + error.message : "إذا كان البريد صحيحاً، ستصلك رسالة استعادة. تحقق من البريد والرسائل غير المرغوب فيها.";
-};
-
-$("savePassword").onclick = async () => {
-  if (!db || !recoveryMode) { $("recoveryMsg").textContent = "افتح رابط الاستعادة الصحيح أولاً."; return; }
-  const password = $("newPassword").value, confirm = $("confirmPassword").value;
-  if (password.length < 8) { $("recoveryMsg").textContent = "كلمة السر يجب أن تكون 8 أحرف على الأقل."; return; }
-  if (password !== confirm) { $("recoveryMsg").textContent = "كلمتا السر غير متطابقتين."; return; }
-  const { data, error: sessionError } = await db.auth.getSession();
-  if (sessionError || !data.session) { $("recoveryMsg").textContent = "جلسة الاستعادة غير موجودة أو انتهت صلاحيتها. اطلب رابطاً جديداً."; return; }
-  const { error } = await db.auth.updateUser({ password });
-  if (error) { $("recoveryMsg").textContent = "تعذر تغيير كلمة السر: " + error.message; return; }
-  recoveryMode = false;
-  $("recovery").classList.add("hidden");
-  $("password").value = ""; $("newPassword").value = ""; $("confirmPassword").value = "";
-  $("loginMsg").textContent = "تم تغيير كلمة السر بنجاح. سجّل الدخول بكلمة السر الجديدة.";
-  $("login").classList.remove("hidden");
-  await db.auth.signOut();
-  history.replaceState(null, "", window.location.pathname);
-};
-
-$("signIn").onclick = async () => {
-  if (!db) return;
-  const { error } = await db.auth.signInWithPassword({ email: $("email").value.trim(), password: $("password").value });
-  if (error) { $("loginMsg").textContent = "فشل الدخول: " + error.message; return; }
-  $("loginMsg").textContent = "تم تسجيل الدخول، جارٍ فحص الصلاحيات...";
-  await checkAdmin();
-};
-
-async function checkAdmin() {
-  const { data: { user }, error: userError } = await db.auth.getUser();
-  if (userError || !user) return;
-  const { data, error } = await db.from("admins").select("user_id").eq("user_id", user.id).maybeSingle();
-  if (error || !data) { $("dashboard").classList.add("hidden"); $("loginMsg").textContent = "الحساب ليس مديراً أو تعذر التحقق من الصلاحيات."; return; }
-  $("dashboard").classList.remove("hidden");
-  $("signOut").classList.remove("hidden");
-  $("loginMsg").textContent = "أهلاً بك في لوحة الإدارة.";
-  await Promise.all([loadProducts(), loadAppearance(), loadDeposits()]);
+const $=id=>document.getElementById(id);
+let db=null, currentUser=null, bannerUrl="", logoUrl="";
+const bucket="store-media";
+function message(id,text){$(id).textContent=text||""}
+function showTab(tab){document.querySelectorAll('[id^="tab-"]').forEach(x=>x.classList.add("hidden"));$("tab-"+tab)?.classList.remove("hidden");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));}
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+async function verifyAdmin(){
+ const {data:{user},error:uerr}=await db.auth.getUser(); if(uerr||!user)throw new Error("جلسة الدخول غير صالحة");
+ const {data,error}=await db.from("admins").select("user_id").eq("user_id",user.id).maybeSingle();
+ if(error||!data)throw new Error("هذا الحساب ليس ضمن المديرين أو تعذّر التحقق من الصلاحية");
+ currentUser=user;
 }
+$("loginBtn").onclick=async()=>{
+ const url=$("url").value.trim(),key=$("key").value.trim();
+ if(!url.startsWith("https://")||!key){message("loginMsg","أدخل رابط Supabase والمفتاح العام.");return}
+ $("loginBtn").disabled=true;message("loginMsg","جارٍ الاتصال والتحقق...");
+ try{db=createClient(url,key);const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)throw error;await verifyAdmin();
+ $("loginWrap").classList.add("hidden");$("app").classList.remove("hidden");$("logoutTop").classList.remove("hidden");$("settingsUrl").value=url;message("loginMsg","");await Promise.all([loadDeposits(),loadProducts(),loadAppearance(),loadSupport()]);
+ }catch(e){message("loginMsg","تعذّر الدخول: "+e.message);if(db)await db.auth.signOut().catch(()=>{});}
+ finally{$("loginBtn").disabled=false}
+};
+async function doLogout(){if(db)await db.auth.signOut();location.reload()}
+$("logout").onclick=doLogout;$("logoutTop").onclick=doLogout;
 
-$("signOut").onclick = async () => {
-  if (db) await db.auth.signOut();
-  $("dashboard").classList.add("hidden"); $("signOut").classList.add("hidden");
-  $("loginMsg").textContent = "تم تسجيل الخروج.";
+async function loadDeposits(){
+ if(!db)return;message("depositMsg","جارٍ تحميل طلبات الإيداع...");
+ const {data,error}=await db.from("deposit_requests").select("id,user_id,amount,currency,payment_method,transaction_reference,proof_url,status,created_at,reviewed_at").order("created_at",{ascending:false}).limit(100);
+ if(error){message("depositMsg","تعذّر جلب الإيداعات: "+error.message);return}
+ $("statPending").textContent=data.filter(r=>r.status==="pending").length;
+ const root=$("deposits");root.replaceChildren();message("depositMsg",data.length?`تم تحميل ${data.length} طلب`:"لا توجد طلبات إيداع حالياً.");
+ for(const r of data){
+  const box=document.createElement("article");box.className="item";
+  const title=document.createElement("h3");title.textContent=`${r.amount} ${r.currency} · ${r.payment_method==="BINANCE"?"Binance":r.payment_method==="SHAM_CASH"?"شام كاش":r.payment_method}`;title.style.color="var(--gold)";
+  const badge=document.createElement("span");badge.className="badge";badge.textContent=({pending:"قيد المراجعة",approved:"مقبول",rejected:"مرفوض"})[r.status]||r.status;
+  const detail=document.createElement("p");detail.textContent=`رقم الطلب: ${r.id}\nمعرّف الزبون: ${r.user_id}\nرقم التحويل: ${r.transaction_reference||"غير مرفق"}\nالتاريخ: ${new Date(r.created_at).toLocaleString("ar")}`;
+  box.append(title,badge,detail);
+  if(r.proof_url){const a=document.createElement("a");a.href=r.proof_url;a.target="_blank";a.rel="noopener noreferrer";a.textContent="فتح إثبات التحويل";a.style.color="var(--gold)";box.append(a)}
+  if(r.status==="pending"){
+   const actions=document.createElement("div");actions.className="actions";
+   const yes=document.createElement("button");yes.className="btn";yes.textContent="تأكيد الإيداع";
+   yes.onclick=async()=>{if(!confirm("هل تحققت من وصول المبلغ فعلياً؟ ستضاف القيمة لمحفظة الزبون."))return;yes.disabled=true;const {error}=await db.rpc("approve_deposit",{p_request_id:r.id});if(error){alert("فشل التأكيد: "+error.message);yes.disabled=false}else{alert("تم تأكيد الإيداع.");await loadDeposits()}};
+   const no=document.createElement("button");no.className="btn danger";no.textContent="رفض الطلب";
+   no.onclick=async()=>{if(!confirm("رفض طلب الإيداع؟"))return;no.disabled=true;const {error}=await db.rpc("reject_deposit",{p_request_id:r.id});if(error){alert("فشل الرفض: "+error.message);no.disabled=false}else{alert("تم رفض الطلب.");await loadDeposits()}};
+   actions.append(yes,no);box.append(actions);
+  }
+  root.append(box);
+ }
+}
+$("refreshDeposits").onclick=loadDeposits;
+
+async function uploadFile(file,kind){
+ if(!file)throw new Error("اختر ملفاً أولاً");
+ const allowed=kind==="banner"?/^(image\/|video\/mp4|video\/webm|video\/quicktime)/:/^image\//;
+ if(!allowed.test(file.type))throw new Error("نوع الملف غير مدعوم");
+ if(file.size>30*1024*1024)throw new Error("حجم الملف أكبر من 30MB؛ اختر ملفاً أصغر");
+ const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+ const path=`${kind}/${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+ const {error}=await db.storage.from(bucket).upload(path,file,{upsert:false,contentType:file.type});
+ if(error)throw new Error(error.message+" — تأكد من إنشاء Storage bucket باسم "+bucket+" وإعداد سياسات الرفع.");
+ const {data}=db.storage.from(bucket).getPublicUrl(path);
+ return data.publicUrl;
+}
+$("productForm").onsubmit=async ev=>{
+ ev.preventDefault();if(!db)return;
+ const btn=$("saveProduct");btn.disabled=true;message("productMsg","جارٍ حفظ المنتج...");
+ try{
+  let image_url="";const file=$("pImageFile").files[0];if(file)image_url=await uploadFile(file,"products");
+  const payload={name:$("pName").value.trim(),category:$("pCategory").value.trim()||"عام",price:Number($("pPrice").value),currency:$("pCurrency").value,description:$("pDescription").value.trim(),image_url,active:true};
+  if(!payload.name||!Number.isFinite(payload.price)||payload.price<0)throw new Error("تأكد من اسم المنتج والسعر");
+  const {error}=await db.from("products").insert(payload);if(error)throw error;
+  $("productForm").reset();message("productMsg","تم حفظ المنتج بنجاح.");await loadProducts();
+ }catch(e){message("productMsg","تعذر الحفظ: "+e.message)}finally{btn.disabled=false}
+};
+async function loadProducts(){
+ if(!db)return;const {data,error}=await db.from("products").select("*").order("created_at",{ascending:false}).limit(200);
+ if(error){$("products").textContent="تعذر تحميل المنتجات: "+error.message;return}
+ $("statProducts").textContent=data.length;const root=$("products");root.replaceChildren();
+ if(!data.length){root.textContent="لا توجد منتجات بعد.";return}
+ data.forEach(p=>{
+  const box=document.createElement("article");box.className="item";
+  if(p.image_url){const im=document.createElement("img");im.src=p.image_url;im.alt=p.name;box.append(im)}
+  const title=document.createElement("h3");title.textContent=p.name;title.style.color="var(--gold)";
+  const info=document.createElement("p");info.textContent=`${p.price} ${p.currency} · ${p.category||"عام"}\n${p.description||""}`;
+  const actions=document.createElement("div");actions.className="actions";
+  const edit=document.createElement("button");edit.className="btn secondary";edit.textContent="تعديل الاسم والسعر";
+  edit.onclick=async()=>{const name=prompt("اسم المنتج:",p.name);if(name===null)return;const priceText=prompt("السعر:",String(p.price));if(priceText===null)return;const price=Number(priceText);if(!name.trim()||!Number.isFinite(price)||price<0){alert("الاسم أو السعر غير صحيح");return}const {error}=await db.from("products").update({name:name.trim(),price}).eq("id",p.id);if(error)alert("تعذر التعديل: "+error.message);else await loadProducts()};
+  const toggle=document.createElement("button");toggle.className="btn";toggle.textContent=p.active?"إخفاء":"إظهار";toggle.onclick=async()=>{const {error}=await db.from("products").update({active:!p.active}).eq("id",p.id);if(error)alert(error.message);else await loadProducts()};
+  actions.append(edit,toggle);box.append(title,info,actions);root.append(box);
+ });
+}
+$("refreshProducts").onclick=loadProducts;
+
+function previewFile(inputId,previewId){$(inputId).onchange=()=>{const file=$(inputId).files[0],root=$(previewId);root.replaceChildren();if(!file)return;const url=URL.createObjectURL(file);let el;if(file.type.startsWith("video/")){el=document.createElement("video");el.controls=true;el.muted=true}else{el=document.createElement("img");el.alt="معاينة"}el.src=url;el.className="preview";root.append(el)}}
+previewFile("bannerFile","bannerPreview");previewFile("logoFile","logoPreview");
+async function loadAppearance(){
+ if(!db)return;const {data,error}=await db.from("store_settings").select("*").eq("id",1).maybeSingle();
+ if(error){message("appearanceMsg","تعذر تحميل الإعدادات: "+error.message);return}
+ if(!data)return;$("sName").value=data.store_name||"ZEKO CHARGE";$("sPrimary").value=data.primary_color||"#f5c84b";$("sBackground").value=data.background_color||"#080d18";bannerUrl=data.banner_url||"";logoUrl=data.logo_url||"";
+}
+$("saveAppearance").onclick=async()=>{
+ if(!db)return;const btn=$("saveAppearance");btn.disabled=true;message("appearanceMsg","جارٍ حفظ المظهر...");
+ try{
+  const bannerFile=$("bannerFile").files[0],logoFile=$("logoFile").files[0];
+  if(bannerFile)bannerUrl=await uploadFile(bannerFile,"banners");
+  if(logoFile)logoUrl=await uploadFile(logoFile,"logos");
+  const {error}=await db.from("store_settings").upsert({id:1,store_name:$("sName").value.trim()||"ZEKO CHARGE",primary_color:$("sPrimary").value,background_color:$("sBackground").value,banner_url:bannerUrl,logo_url:logoUrl,updated_at:new Date().toISOString()});
+  if(error)throw error;
+  message("appearanceMsg","تم حفظ إعدادات المظهر. ملاحظة: إذا رفعت فيديو، يجب تعديل واجهة index.html لعرضه كفيديو.");
+ }catch(e){message("appearanceMsg","تعذر الحفظ: "+e.message)}finally{btn.disabled=false}
 };
 
-async function loadDeposits() {
-  if (!db) return;
-  $("depositMsg").textContent = "جارٍ تحميل الطلبات...";
-  const { data, error } = await db.from("deposit_requests")
-    .select("id,user_id,amount,currency,payment_method,transaction_reference,proof_url,status,created_at,reviewed_at")
-    .order("created_at", { ascending: false }).limit(100);
-  if (error) { $("depositMsg").textContent = "تعذر تحميل طلبات الإيداع: " + error.message; return; }
-  $("depositMsg").textContent = data.length ? `عدد الطلبات المعروضة: ${data.length}` : "لا توجد طلبات إيداع حتى الآن.";
-  const root = $("deposits"); root.replaceChildren();
-  data.forEach(r => {
-    const box = document.createElement("div"); box.className = "item";
-    const title = document.createElement("strong"); title.textContent = `${r.amount} ${r.currency} — ${r.payment_method === "BINANCE" ? "Binance" : r.payment_method === "SHAM_CASH" ? "شام كاش" : r.payment_method}`;
-    const status = document.createElement("p"); status.innerHTML = `<span class="status"></span>`;
-    status.firstElementChild.textContent = r.status === "pending" ? "قيد المراجعة" : r.status === "approved" ? "مقبول" : "مرفوض";
-    const details = document.createElement("p");
-    details.textContent = `رقم الطلب: ${r.id}\nمعرّف الزبون: ${r.user_id}\nرقم العملية: ${r.transaction_reference || "غير مرفق"}\nتاريخ الطلب: ${new Date(r.created_at).toLocaleString("ar")}`;
-    details.style.whiteSpace = "pre-line";
-    box.append(title, status, details);
-    if (r.proof_url) {
-      const proof = document.createElement("a"); proof.href = r.proof_url; proof.target = "_blank"; proof.rel = "noopener noreferrer";
-      proof.textContent = "فتح إثبات التحويل"; proof.style.color = "#f4d675"; proof.style.display = "block"; proof.style.margin = "8px 0";
-      box.append(proof);
-    }
-    if (r.status === "pending") {
-      const actions = document.createElement("div"); actions.className = "actions";
-      const approve = document.createElement("button"); approve.textContent = "تأكيد الإيداع";
-      approve.onclick = async () => {
-        if (!confirm("تأكدت من وصول المبلغ فعلياً؟ سيتم إضافة الرصيد لمحفظة الزبون.")) return;
-        approve.disabled = true; approve.textContent = "جارٍ التأكيد...";
-        const { error } = await db.rpc("approve_deposit", { p_request_id: r.id });
-        if (error) { alert("تعذر تأكيد الإيداع: " + error.message); approve.disabled = false; approve.textContent = "تأكيد الإيداع"; }
-        else { alert("تم تأكيد الإيداع وإضافة الرصيد."); await loadDeposits(); }
-      };
-      const reject = document.createElement("button"); reject.textContent = "رفض الطلب"; reject.className = "danger";
-      reject.onclick = async () => {
-        if (!confirm("هل تريد رفض طلب الإيداع؟ لن تتم إضافة أي رصيد.")) return;
-        reject.disabled = true; reject.textContent = "جارٍ الرفض...";
-        const { error } = await db.rpc("reject_deposit", { p_request_id: r.id });
-        if (error) { alert("تعذر رفض الطلب: " + error.message); reject.disabled = false; reject.textContent = "رفض الطلب"; }
-        else { alert("تم رفض الطلب."); await loadDeposits(); }
-      };
-      actions.append(approve, reject); box.append(actions);
-    }
-    root.append(box);
-  });
+async function loadSupport(){
+ if(!db)return;message("supportMsg","جارٍ تحميل طلبات الدعم...");
+ const {data,error}=await db.from("support_tickets").select("*").order("created_at",{ascending:false}).limit(100);
+ if(error){message("supportMsg","جدول الدعم غير جاهز أو لا توجد صلاحيات: "+error.message);$("statSupport").textContent="—";return}
+ $("statSupport").textContent=data.length;message("supportMsg",data.length?`عدد التذاكر: ${data.length}`:"لا توجد تذاكر دعم.");
+ const root=$("supportList");root.replaceChildren();
+ data.forEach(t=>{const box=document.createElement("article");box.className="item";const title=document.createElement("h3");title.textContent=t.subject||t.title||"طلب دعم";title.style.color="var(--gold)";const body=document.createElement("p");body.textContent=`رقم التذكرة: ${t.id}\nالحالة: ${t.status||"غير محددة"}\nالمستخدم: ${t.user_id||"غير متاح"}\n${t.message||t.description||""}`;box.append(title,body);root.append(box)});
 }
-$("refreshDeposits").onclick = loadDeposits;
-
-$("addProduct").onclick = async () => {
-  const name = $("productName").value.trim(), price = Number($("price").value);
-  if (!db) return;
-  if (!name || $("price").value === "" || !Number.isFinite(price) || price < 0) { $("productMsg").textContent = "أدخل اسم المنتج وسعراً صحيحاً."; return; }
-  const { error } = await db.from("products").insert({
-    name, category: $("category").value.trim() || "عام", price, currency: $("currency").value,
-    description: $("description").value.trim(), image_url: $("image").value.trim(), active: true
-  });
-  $("productMsg").textContent = error ? "تعذر إضافة المنتج: " + error.message : "تمت إضافة المنتج.";
-  if (!error) { ["productName","category","price","description","image"].forEach(id => $(id).value = ""); await loadProducts(); }
-};
-
-async function loadProducts() {
-  if (!db) return;
-  const { data, error } = await db.from("products").select("*").order("created_at", { ascending: false });
-  if (error) { $("products").textContent = "تعذر جلب المنتجات: " + error.message; return; }
-  $("products").replaceChildren();
-  data.forEach(p => {
-    const box = document.createElement("div"); box.className = "item";
-    const title = document.createElement("strong"); title.textContent = p.name;
-    const info = document.createElement("p"); info.textContent = `${p.price} ${p.currency} — ${p.category}`;
-    const edit = document.createElement("button"); edit.textContent = "تعديل الاسم والسعر";
-    edit.onclick = async () => {
-      const name = prompt("اسم المنتج:", p.name); if (name === null) return;
-      const priceText = prompt("السعر:", String(p.price)); if (priceText === null) return;
-      const price = Number(priceText);
-      if (!name.trim() || !Number.isFinite(price) || price < 0) { alert("الاسم أو السعر غير صحيح."); return; }
-      const { error } = await db.from("products").update({ name: name.trim(), price }).eq("id", p.id);
-      if (error) alert("تعذر التعديل: " + error.message); else await loadProducts();
-    };
-    const toggle = document.createElement("button"); toggle.className = "secondary"; toggle.textContent = p.active ? "إخفاء المنتج" : "إظهار المنتج";
-    toggle.onclick = async () => {
-      const { error } = await db.from("products").update({ active: !p.active }).eq("id", p.id);
-      if (error) alert("تعذر تغيير الحالة: " + error.message); else await loadProducts();
-    };
-    box.append(title, info, edit, toggle); $("products").append(box);
-  });
-}
-
-async function loadAppearance() {
-  if (!db) return;
-  const { data, error } = await db.from("store_settings").select("*").eq("id", 1).maybeSingle();
-  if (error) { $("appearanceMsg").textContent = "تعذر تحميل الإعدادات: " + error.message; return; }
-  if (!data) return;
-  $("storeName").value = data.store_name || "ZEKO CHARGE";
-  $("primary").value = data.primary_color || "#d4af37";
-  $("background").value = data.background_color || "#080d18";
-  $("logo").value = data.logo_url || ""; $("banner").value = data.banner_url || "";
-}
-$("saveAppearance").onclick = async () => {
-  if (!db) return;
-  const { error } = await db.from("store_settings").upsert({
-    id: 1, store_name: $("storeName").value.trim() || "ZEKO CHARGE",
-    primary_color: $("primary").value, background_color: $("background").value,
-    logo_url: $("logo").value.trim(), banner_url: $("banner").value.trim(), updated_at: new Date().toISOString()
-  });
-  $("appearanceMsg").textContent = error ? "تعذر حفظ المظهر: " + error.message : "تم حفظ الإعدادات.";
-};
-$("refresh").onclick = loadProducts;
-
-// الاستعادة: استخدم رابط المشروع والمفتاح العام اللذين أدخلتهما في شاشة الاتصال.
-// لا نضع مفتاحاً خاصاً أو سرياً داخل الملف.
-if (window.location.hash.includes("type=recovery")) {
-  $("setupMsg").textContent = "أدخل رابط Supabase والمفتاح العام ثم اضغط الاتصال لمتابعة استعادة كلمة السر.";
-}
+$("refreshSupport").onclick=loadSupport;
 </script>
 </body>
 </html>
