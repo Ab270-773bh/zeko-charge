@@ -1,153 +1,140 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080b14">
-<title>ZEKO CHARGE | متجر الشحن الرقمي</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050b16">
+<title>ZEKO CHARGE | شحن الألعاب والتطبيقات</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#070a12;--panel:#101a2c;--gold:#f5c84c;--gold2:#ffe9a0;--muted:#a5b1c5;--line:#283650}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(ellipse at 50% -10%,#293752 0,transparent 45%),var(--bg);color:#f7f8fc;font-family:system-ui,Arial,sans-serif}
-a{color:inherit;text-decoration:none}
-button,input{font:inherit}
-.wrap{width:min(1120px,calc(100% - 26px));margin:auto}
-header{position:sticky;top:0;z-index:10;background:#080c16ed;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff12}
-.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.brand{display:flex;align-items:center;gap:9px}
-.logo{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#fff0a6,#d59b1d);color:#111;font-weight:1000;font-size:25px;box-shadow:0 0 24px #f5c84c38}
-.brand b{display:block;font-size:18px;letter-spacing:1px}
-.brand small{display:block;color:var(--gold);letter-spacing:3px;font-size:10px}
-.navbtn{background:#111b2d;border:1px solid var(--line);color:#fff;border-radius:12px;padding:10px 12px}
-.hero{position:relative;isolation:isolate;overflow:hidden;margin-top:22px;min-height:330px;border-radius:25px;border:1px solid #f5c84c50;display:flex;align-items:center;background:#111b2d}
-.hero:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#080c16 0%,#0b1220d9 48%,#080c1650),url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=85') center/cover;animation:zoom 16s ease-in-out infinite alternate}
-.hero:after{content:"";position:absolute;inset:-60%;z-index:-1;background:linear-gradient(110deg,transparent 43%,#ffe9a01a 50%,transparent 57%);animation:shine 7s linear infinite}
-.herotext{padding:27px;max-width:610px}
-.eyebrow{font-size:12px;color:var(--gold);font-weight:900;letter-spacing:2px}
-h1{font-size:clamp(34px,7vw,59px);line-height:1.17;margin:12px 0}
-h1 span{color:var(--gold)}
-.herotext p{color:#c0cada;line-height:1.9}
-.goldbtn{display:inline-block;background:linear-gradient(110deg,var(--gold2),#e3a922);border:0;border-radius:12px;padding:13px 20px;color:#15120a;font-weight:900;cursor:pointer;box-shadow:0 7px 25px #f5c84c27}
-.section{padding-top:31px}
-.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}
-h2{font-size:21px;margin:0}
-.head small{color:var(--muted)}
-.categories{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
-.cat{background:linear-gradient(145deg,#17233a,#0d1422);border:1px solid var(--line);border-radius:15px;padding:15px 4px;text-align:center;cursor:pointer;transition:.2s}
-.cat:active,.cat:hover{border-color:var(--gold);transform:translateY(-3px)}
-.cat span{display:block;font-size:27px;margin-bottom:7px}
-.cat b{font-size:12px}
-.search{display:flex;gap:8px;margin:22px 0 0}
-.search input{width:100%;min-width:0;background:#101827;border:1px solid var(--line);border-radius:12px;padding:13px;color:white;outline:none}
-.search input:focus{border-color:var(--gold)}
-.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-.card{min-width:0;overflow:hidden;border-radius:17px;background:linear-gradient(150deg,#152137,#0d1421);border:1px solid var(--line);transition:transform .25s,border-color .25s}
-.card:hover{transform:translateY(-4px);border-color:#d6ac42}
-.art{height:135px;position:relative;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle,#314361,#101827 70%)}
-.art img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.card:hover .art img{transform:scale(1.08)}
-.art .emoji{font-size:43px;filter:drop-shadow(0 0 15px #f5c84c55)}
-.info{padding:12px}
-.tag{font-size:10px;color:var(--gold);font-weight:800}
-.info h3{font-size:14px;margin:5px 0}
-.info p{font-size:11px;color:var(--muted);line-height:1.6;min-height:34px;margin:5px 0}
-.price{font-size:17px;color:var(--gold2);font-weight:900;margin:10px 0}
-.info button{width:100%;font-size:12px;padding:11px 4px}
-.empty{display:none;color:var(--muted);text-align:center;padding:30px}
-.promo{margin-top:30px;padding:23px;border:1px solid #f5c84c45;border-radius:20px;background:linear-gradient(110deg,#29200e,#121a2a 75%);display:flex;align-items:center;justify-content:space-between;gap:15px}
-.promo p{color:var(--muted);font-size:13px;line-height:1.7}
-footer{text-align:center;padding:30px 10px 90px;color:#8492a8;font-size:12px}
-.bottom{position:fixed;bottom:0;left:0;right:0;z-index:15;background:#080c16f5;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 3px calc(10px + env(safe-area-inset-bottom))}
-.bottom a{text-align:center;font-size:11px;color:#aab6ca;min-width:55px}
-.bottom span{display:block;font-size:20px;margin-bottom:3px}
-.bottom a:first-child{color:var(--gold)}
-@keyframes shine{from{transform:translateX(-30%)}to{transform:translateX(30%)}}
-@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.09)}}
-@media(min-width:700px){.hero{min-height:390px}.products{grid-template-columns:repeat(4,minmax(0,1fr))}.art{height:175px}}
-@media(max-width:380px){.categories{grid-template-columns:repeat(2,minmax(0,1fr))}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{min-height:300px}.herotext{padding:20px}.art{height:110px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+:root{--bg:#050b16;--panel:#0a1426;--panel2:#0d1b31;--line:#233753;--gold:#ffd45a;--gold2:#f2ad22;--muted:#9babc3;--white:#f5f7fc;--red:#ff626e;--green:#52d7a0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#172744 0,#050b16 58%);color:var(--white);font-family:Tahoma,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:82px}.top{position:sticky;top:0;z-index:10;background:#050b16ed;backdrop-filter:blur(16px);border-bottom:1px solid #1b2c45;padding:10px 14px}.toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.5px}.bolt{color:var(--gold);font-size:35px;text-shadow:0 0 18px #ffca45}.brand small{display:block;font-size:10px;color:var(--gold);letter-spacing:3px;text-align:center}.round{border:1px solid var(--line);background:#0d1b30;color:var(--white);width:40px;height:40px;border-radius:14px;font-size:18px}.search{display:flex;gap:8px;margin-top:10px}.search input,.field{width:100%;background:#0a1629;border:1px solid #2b4161;border-radius:13px;padding:12px;color:white;outline:none}.search input:focus,.field:focus{border-color:var(--gold)}.hero{margin:14px;border:1px solid #34445a;border-radius:19px;overflow:hidden;position:relative;min-height:205px;background:linear-gradient(90deg,#07102022,#071020e8),url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85') center/cover}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#050b16e8,transparent 70%);pointer-events:none}.heroContent{position:absolute;z-index:1;bottom:18px;right:17px;left:17px}.hero h1{font-size:23px;margin:0 0 7px}.hero p{margin:0 0 13px;color:#e0e7f3;font-size:13px}.goldbtn{border:0;border-radius:12px;padding:12px 17px;background:linear-gradient(135deg,#ffe77d,#ffbe30);color:#17130a;font-weight:900;box-shadow:0 4px 20px #ffc83d35}.goldbtn:disabled{opacity:.5}.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 14px}.cat{min-height:87px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#111e32,#071020);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;color:#e9eef8;font-size:12px}.cat b{font-size:25px;color:var(--gold);text-shadow:0 0 13px #f9bd40}.section{padding:18px 14px 4px}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.section h2{font-size:17px;margin:0}.muted{color:var(--muted);font-size:12px}.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(150deg,#102039,#071020);min-width:0}.product img{width:100%;height:112px;object-fit:cover;display:block;background:#101e33}.productbody{padding:10px}.product h3{font-size:13px;margin:0 0 7px;min-height:32px}.price{color:var(--gold);font-weight:900;margin:6px 0 10px}.product .goldbtn{width:100%;padding:10px;font-size:12px}.panel{margin:14px;padding:15px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,#101e33,#071020)}.hidden{display:none!important}.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:#061020f5;border-top:1px solid #273a57;z-index:20;backdrop-filter:blur(15px)}.tab{border:0;background:transparent;color:#91a2bc;font-size:11px;display:flex;align-items:center;flex-direction:column;gap:4px;padding:4px}.tab span{font-size:20px}.tab.active{color:var(--gold)}.screenTitle{display:flex;align-items:center;gap:10px;margin:17px 14px}.screenTitle h2{font-size:20px;margin:0}.form{display:grid;gap:10px}.form label{font-size:12px;color:#c8d2e2}.form .goldbtn{width:100%}.linkbtn{background:none;border:0;color:var(--gold);padding:8px 0}.notice{padding:11px;border-radius:12px;background:#12223a;border:1px solid #293e5d;color:#c9d6e8;font-size:12px;line-height:1.7}.status{display:inline-block;border-radius:20px;padding:5px 9px;background:#17263d;color:#f7d675;font-size:11px}.listrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid #1b2d46}.listrow:last-child{border:0}.avatar{width:48px;height:48px;display:grid;place-items:center;background:#182945;color:var(--gold);border:1px solid #604e28;border-radius:50%;font-size:24px}.balance{font-size:28px;font-weight:900;color:var(--gold)}.empty{text-align:center;padding:26px 12px;color:var(--muted);font-size:13px}.danger{color:var(--red)}.supportmsg{white-space:pre-wrap;background:#0b182a;border:1px solid #203552;padding:11px;border-radius:12px;margin:8px 0;font-size:13px}.foot{text-align:center;padding:20px;color:#75849b;font-size:11px}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <a href="#" class="brand"><span class="logo">Z</span><span><b>ZEKO</b><small>CHARGE</small></span></a>
-    <div style="display:flex;gap:8px">
-      <a class="navbtn" href="#products">⌕ البحث</a>
-      <a class="navbtn" href="admin.html">♙ الإدارة</a>
-    </div>
-  </div>
+<div class="app">
+<header class="top">
+ <div class="toprow">
+  <button class="round" id="menuBtn" aria-label="القائمة">☰</button>
+  <div class="brand"><span class="bolt">ϟ</span><div>ZEKO<small>CHARGE</small></div></div>
+  <button class="round" id="cartTop" aria-label="السلة">🛒<sup id="cartCount">0</sup></button>
+  <button class="round" id="bellBtn" aria-label="الإشعارات">♧</button>
+ </div>
+ <div class="search"><input id="searchInput" placeholder="ابحث عن منتج أو لعبة..." autocomplete="off"><button class="round" id="searchBtn">⌕</button></div>
 </header>
-<main class="wrap">
-  <section class="hero">
-    <div class="herotext">
-      <div class="eyebrow">✦ YOUR DIGITAL WORLD ✦</div>
-      <h1>اشحن لعبتك<br><span>وارفع مستواك</span></h1>
-      <p>اكتشف عالم الشحن الرقمي والألعاب والبطاقات، بتجربة بسيطة مصممة لهاتفك.</p>
-      <a href="#products" class="goldbtn">استكشف المنتجات　↙</a>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="head"><h2>التصنيفات</h2><small>اختر عالمك</small></div>
-    <div class="categories">
-      <button class="cat" data-category="ألعاب"><span>🎮</span><b>الألعاب</b></button>
-      <button class="cat" data-category="اتصالات"><span>📱</span><b>رصيد الهاتف</b></button>
-      <button class="cat" data-category="بطاقات"><span>💳</span><b>بطاقات رقمية</b></button>
-      <button class="cat" data-category="الكل"><span>✦</span><b>كل الخدمات</b></button>
-    </div>
-  </section>
-
-  <section class="section" id="products">
-    <div class="head"><h2>✦ منتجات المتجر</h2><small id="count">اكتشف المنتجات</small></div>
-    <div class="search"><input id="search" type="search" placeholder="ابحث عن لعبة أو خدمة..." aria-label="البحث عن المنتجات"></div>
-    <div class="products" id="productList"></div>
-    <div class="empty" id="empty">ما لقينا منتجات مطابقة لبحثك.</div>
-  </section>
-
-  <section class="promo">
-    <div><div class="eyebrow">ZEKO CHARGE</div><h2>عالمك الرقمي بانتظارك</h2><p>تصفح المنتجات واختر الخدمة التي تبحث عنها.</p></div>
-    <a href="#products" class="goldbtn">تسوّق الآن ↗</a>
-  </section>
+<main id="homeScreen">
+ <section class="hero"><div class="heroContent"><h1>شحنك أسرع… لعبك أقوى ⚡</h1><p>شحن ألعاب وبطاقات رقمية من مكان واحد</p><button class="goldbtn" onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})">اكتشف المنتجات ←</button></div></section>
+ <section class="categories">
+  <button class="cat" data-category="ألعاب"><b>🎮</b>ألعاب</button><button class="cat" data-category="شحن الجوال"><b>▣</b>شحن الجوال</button><button class="cat" data-category="بطاقات رقمية"><b>💳</b>بطاقات رقمية</button><button class="cat" data-category="تطبيقات"><b>▦</b>تطبيقات</button>
+ </section>
+ <section class="section" id="productsSection"><div class="sectionhead"><h2>🔥 الأكثر مبيعاً</h2><span class="muted" id="productCount">منتجات رقمية</span></div><div id="productsGrid" class="products"></div></section>
+ <div class="foot">ZEKO CHARGE · شحن وبطاقات رقمية</div>
 </main>
-<footer>ZEKO CHARGE © <span id="year"></span><br>متجر الشحن الرقمي</footer>
-<nav class="bottom">
-  <a href="#"><span>⌂</span>الرئيسية</a>
-  <a href="#products"><span>▦</span>المنتجات</a>
-  <a href="admin.html"><span>♙</span>الإدارة</a>
+
+<section id="authScreen" class="hidden">
+ <div class="screenTitle"><button class="round" data-screen="home">←</button><h2 id="authTitle">إنشاء حساب</h2></div>
+ <div class="panel"><div class="notice">أنشئ حسابك لتتابع طلباتك ومحفظتك. لا تشارك كلمة السر مع أي شخص.</div>
+  <form id="authForm" class="form" style="margin-top:14px">
+   <div id="nameWrap"><label>الاسم</label><input class="field" id="fullName" autocomplete="name" placeholder="اسمك الكامل"></div>
+   <div><label>البريد الإلكتروني</label><input class="field" id="email" type="email" required autocomplete="email" placeholder="name@example.com"></div>
+   <div id="passwordWrap"><label>كلمة السر</label><input class="field" id="password" type="password" minlength="8" autocomplete="new-password" placeholder="8 أحرف على الأقل"></div>
+   <button class="goldbtn" id="authSubmit">إنشاء حساب</button>
+  </form>
+  <button class="linkbtn" id="switchAuth">لديك حساب؟ تسجيل الدخول</button>
+  <button class="linkbtn" id="forgotBtn">نسيت كلمة السر؟</button>
+  <div id="authMessage" class="notice hidden" role="status"></div>
+ </div>
+</section>
+
+<section id="accountScreen" class="hidden">
+ <div class="screenTitle"><h2>حسابي</h2><span class="status" id="accountStatus">ضيف</span></div>
+ <div class="panel"><div class="toprow"><div style="display:flex;align-items:center;gap:10px"><div class="avatar">♙</div><div><b id="accountName">مرحباً بك</b><div class="muted" id="accountEmail">سجّل الدخول لإدارة حسابك</div></div></div><button class="round" id="accountAuthBtn">↗</button></div></div>
+ <div class="panel"><div class="muted">رصيد المحفظة</div><div class="balance" id="walletBalance">—</div><div class="notice" style="margin-top:10px">رصيد المحفظة يظهر بعد تفعيل نظام المحفظة الآمن واعتماد أي إيداع من الإدارة.</div><button class="goldbtn" style="margin-top:12px;width:100%" data-screen="wallet">عرض المحفظة</button></div>
+ <div class="panel">
+  <div class="listrow"><div>🧾 طلباتي</div><button class="linkbtn" data-screen="orders">عرض الطلبات ←</button></div>
+  <div class="listrow"><div>🛡️ توثيق الهوية</div><button class="linkbtn" data-screen="verify">فتح التوثيق ←</button></div>
+  <div class="listrow"><div>🎧 الدعم الفني</div><button class="linkbtn" data-screen="support">تواصل معنا ←</button></div>
+  <div class="listrow"><div>🔐 كلمة السر</div><button class="linkbtn" id="accountForgot">استعادة ←</button></div>
+  <div class="listrow"><div>تسجيل الخروج</div><button class="linkbtn danger" id="logoutBtn">خروج</button></div>
+ </div>
+</section>
+
+<section id="walletScreen" class="hidden">
+ <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>محفظتي</h2></div>
+ <div class="panel"><div class="muted">الرصيد المتاح</div><div class="balance" id="walletBalance2">—</div><div class="notice">الإيداع والتحويلات غير مفعّلة حتى يتم إعداد قواعد قاعدة البيانات والمراجعة الإدارية. لا تحوّل أموالاً بناءً على هذه الصفحة وحدها.</div></div>
+ <div class="panel"><h3>سجل حركات المحفظة</h3><div class="empty">سيظهر سجل الحركات بعد ربط نظام المحفظة الآمن.</div></div>
+</section>
+
+<section id="ordersScreen" class="hidden">
+ <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>طلباتي</h2></div><div class="panel"><div class="empty">سجّل الدخول. سجل الطلبات الحقيقي سيظهر بعد تفعيل جدول الطلبات وربطه.</div></div>
+</section>
+
+<section id="verifyScreen" class="hidden">
+ <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>توثيق الهوية</h2></div>
+ <div class="panel"><div class="notice">ارفع مستندات الهوية فقط إذا كنت ترغب بالتوثيق. يجب تفعيل مساحة تخزين خاصة وسياسات وصول آمنة قبل إرسال أي صورة هوية. لا ترفع صوراً هنا قبل تفعيل التخزين الآمن.</div><div class="empty">توثيق الهوية غير مفعّل بعد — سنضيفه بعد إعداد التخزين الخاص ومراجعة الإدارة.</div></div>
+</section>
+
+<section id="supportScreen" class="hidden">
+ <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>فريق الدعم</h2></div>
+ <div class="panel"><div class="notice">تواصل الدعم داخل المتجر سيتطلب تفعيل جدول التذاكر وصلاحياته حتى تبقى رسائلك خاصة.</div><form id="supportForm" class="form" style="margin-top:12px"><label>عنوان المشكلة</label><input id="supportSubject" class="field" required maxlength="120" placeholder="مثلاً: مشكلة في الطلب"><label>التفاصيل</label><textarea id="supportBody" class="field" required maxlength="2000" rows="4" placeholder="اشرح المشكلة..."></textarea><button class="goldbtn" type="submit">إرسال طلب الدعم</button></form><div id="supportMessage" class="notice hidden"></div><div class="empty">لن يتم إرسال أو حفظ الرسالة حتى يتم إعداد نظام الدعم في قاعدة البيانات.</div></div>
+</section>
+
+<section id="cartScreen" class="hidden">
+ <div class="screenTitle"><button class="round" data-screen="home">←</button><h2>سلة المشتريات</h2></div><div class="panel" id="cartItems"><div class="empty">السلة فارغة حالياً.</div></div><div class="panel"><div class="listrow"><span>المجموع</span><b class="price" id="cartTotal">$0.00</b></div><button class="goldbtn" id="checkoutBtn" style="width:100%">تسجيل الدخول لإكمال الطلب</button><div class="muted" style="margin-top:9px">إتمام الطلب والدفع الحقيقي غير مفعّلين قبل إعداد قاعدة الطلبات ومزوّد الشحن.</div></div>
+</section>
+
+<div id="toast" class="panel hidden" style="position:fixed;bottom:88px;left:14px;right:14px;z-index:30"></div>
+<nav class="tabs">
+ <button class="tab active" data-screen="home"><span>⌂</span>الرئيسية</button>
+ <button class="tab" data-screen="orders"><span>▤</span>الطلبات</button>
+ <button class="tab" data-screen="account"><span>♙</span>حسابي</button>
+ <button class="tab" data-screen="support"><span>◉</span>الدعم</button>
 </nav>
+</div>
 <script>
-const demoProducts=[
- {name:"شحن PUBG Mobile",category:"ألعاب",description:"باقات شحن شدات اللعبة",price:"حسب الباقة",currency:"USD",emoji:"🎯",image:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"},
- {name:"Mobile Legends",category:"ألعاب",description:"منتجات اللعبة الرقمية",price:"حسب الباقة",currency:"USD",emoji:"⚔️",image:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80"},
- {name:"Free Fire",category:"ألعاب",description:"باقات اللعبة الرقمية",price:"حسب الباقة",currency:"USD",emoji:"🔥",image:"https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=600&q=80"},
- {name:"رصيد Syriatel",category:"اتصالات",description:"خدمة رصيد الهاتف",price:"حسب الفئة",currency:"SYP",emoji:"📱",image:""},
- {name:"رصيد MTN",category:"اتصالات",description:"خدمة رصيد الهاتف",price:"حسب الفئة",currency:"SYP",emoji:"📲",image:""},
- {name:"بطاقات رقمية",category:"بطاقات",description:"أضف تفاصيل البطاقة وسعرها من الإدارة",price:"حسب البطاقة",currency:"USD",emoji:"💳",image:""}
+/* إعداد Supabase: ضع رابط مشروعك والمفتاح العام publishable/anon هنا فقط.
+   لا تضع service_role key أبداً داخل HTML. */
+const SUPABASE_URL = 'https://hclijvtwwtnqbmnpyjkj.supabase.co';
+const SUPABASE_ANON_KEY = 'PASTE_YOUR_SUPABASE_ANON_KEY_HERE';
+const configured = SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes('PASTE_');
+const sb = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const demoProducts = [
+ {id:'demo-pubg',name:'شحن شدات ببجي موبايل',category:'ألعاب',description:'شحن شدات PUBG Mobile',price:0.99,currency:'USD',image_url:'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80'},
+ {id:'demo-ml',name:'شحن جواهر Mobile Legends',category:'ألعاب',description:'جواهر ألعاب رقمية',price:0.99,currency:'USD',image_url:'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80'},
+ {id:'demo-google',name:'بطاقة Google Play',category:'بطاقات رقمية',description:'بطاقة متجر رقمية — السعر تجريبي',price:5,currency:'USD',image_url:'https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?auto=format&fit=crop&w=700&q=80'},
+ {id:'demo-steam',name:'بطاقة Steam',category:'بطاقات رقمية',description:'بطاقة ألعاب رقمية — السعر تجريبي',price:5,currency:'USD',image_url:'https://images.unsplash.com/photo-1614294149010-950b698f72c0?auto=format&fit=crop&w=700&q=80'}
 ];
-let products=[...demoProducts],category="الكل";
-const list=document.getElementById("productList");
-const search=document.getElementById("search");
-function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function render(){
- const q=search.value.trim().toLowerCase();
- const filtered=products.filter(p=>(category==="الكل"||p.category===category)&&[p.name,p.category,p.description].join(" ").toLowerCase().includes(q));
- document.getElementById("count").textContent=filtered.length+" منتجات";
- document.getElementById("empty").style.display=filtered.length?"none":"block";
- list.innerHTML=filtered.map(p=>`<article class="card">
- <div class="art">${p.image?`<img src="${safe(p.image)}" alt="" loading="lazy" onerror="this.remove()">`:`<span class="emoji">${safe(p.emoji||"✦")}</span>`}</div>
- <div class="info"><span class="tag">${safe(p.category||"خدمات رقمية")}</span>
- <h3>${safe(p.name)}</h3><p>${safe(p.description||"منتج رقمي من متجر ZEKO CHARGE")}</p>
- <div class="price">${safe(p.price)} ${safe(p.currency||"")}</div>
- <button class="goldbtn" onclick="order('${safe(p.name).replace(/'/g,"&#39;")}')">عرض الخدمة　↗</button></div></article>`).join("");
-}
-function order(name){alert("اخترت: "+name+"\nالطلب والشحن الحقيقي غير مفعّلين بعد. لا تدفع قبل إعداد خدمة الشحن.");}
-search.addEventListener("input",render);
-document.querySelectorAll(".cat").forEach(b=>b.addEventListener("click",()=>{category=b.dataset.category;document.querySelectorAll(".cat").forEach(x=>x.style.borderColor=x===b?"#f5c84c":"");render();document.getElementById("products").scrollIntoView({behavior:"smooth"})}));
-document.getElementById("year").textContent=new Date().getFullYear();
-render();
+let products = demoProducts, cart = [], authMode='signup', currentUser=null, activeScreen='home';
+const $=id=>document.getElementById(id);
+function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),3500)}
+function showScreen(name){activeScreen=name;['home','auth','account','wallet','orders','verify','support','cart'].forEach(s=>$(s+'Screen').classList.toggle('hidden',s!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.screen===name));window.scrollTo({top:0,behavior:'smooth'});if(name==='account')renderAccount();if(name==='cart')renderCart()}
+document.querySelectorAll('[data-screen]').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.screen)));
+function money(p){return (p.currency==='SYP'?'ل.س ':'$')+Number(p.price||0).toLocaleString('en-US',{maximumFractionDigits:2})}
+function renderProducts(list=products){$('productsGrid').innerHTML='';$('productCount').textContent=list.length+' منتجات';list.forEach(p=>{const el=document.createElement('article');el.className='product';const img=document.createElement('img');img.src=p.image_url||'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80';img.alt=p.name;img.loading='lazy';const body=document.createElement('div');body.className='productbody';const h=document.createElement('h3');h.textContent=p.name;const d=document.createElement('div');d.className='muted';d.textContent=p.category||'منتج رقمي';const price=document.createElement('div');price.className='price';price.textContent=money(p);const btn=document.createElement('button');btn.className='goldbtn';btn.textContent='اطلب الآن ←';btn.onclick=()=>{cart.push(p);$('cartCount').textContent=cart.length;toast('تمت إضافة المنتج للسلة');};body.append(h,d,price,btn);el.append(img,body);$('productsGrid').append(el)})}
+async function loadProducts(){if(!sb){renderProducts();return}try{const {data,error}=await sb.from('products').select('id,name,category,description,price,currency,image_url').eq('active',true).order('created_at',{ascending:false});if(error)throw error;if(data&&data.length){products=data;renderProducts()}else renderProducts()}catch(e){console.warn(e);renderProducts()}}
+function setAuthMode(mode){authMode=mode;$('authTitle').textContent=mode==='signup'?'إنشاء حساب':mode==='login'?'تسجيل الدخول':'استعادة كلمة السر';$('authSubmit').textContent=mode==='signup'?'إنشاء حساب':mode==='login'?'دخول':'إرسال رابط الاستعادة';$('nameWrap').classList.toggle('hidden',mode!=='signup');$('passwordWrap').classList.toggle('hidden',mode==='reset');$('forgotBtn').classList.toggle('hidden',mode!=='login');$('switchAuth').classList.toggle('hidden',mode==='reset');$('switchAuth').textContent=mode==='signup'?'لديك حساب؟ تسجيل الدخول':'ليس لديك حساب؟ إنشاء حساب';$('authMessage').classList.add('hidden');$('password').required=mode!=='reset';$('password').autocomplete=mode==='login'?'current-password':'new-password'}
+function showAuth(mode='signup'){setAuthMode(mode);showScreen('auth')}
+$('accountAuthBtn').onclick=()=>currentUser?toast('أنت مسجّل الدخول بالفعل'):showAuth('signup');
+$('switchAuth').onclick=()=>setAuthMode(authMode==='signup'?'login':'signup');
+$('forgotBtn').onclick=()=>setAuthMode('reset');$('accountForgot').onclick=()=>showAuth('reset');
+$('authForm').addEventListener('submit',async e=>{e.preventDefault();if(!sb){$('authMessage').textContent='أضف مفتاح Supabase العام داخل الكود أولاً، ثم احفظ الملف. لا تستخدم مفتاح service_role.';$('authMessage').classList.remove('hidden');return}
+const email=$('email').value.trim(), password=$('password').value, fullName=$('fullName').value.trim();$('authSubmit').disabled=true;
+try{let result;if(authMode==='signup'){result=await sb.auth.signUp({email,password,options:{data:{full_name:fullName},emailRedirectTo:location.origin+location.pathname}});if(!result.error){$('authMessage').textContent='تم إنشاء الطلب. إذا كان تأكيد البريد مفعّلاً، افتح رسالة Supabase لتأكيد الحساب ثم سجّل الدخول.';$('authMessage').classList.remove('hidden');return}}
+else if(authMode==='login'){result=await sb.auth.signInWithPassword({email,password});if(!result.error){currentUser=result.data.user;toast('تم تسجيل الدخول');showScreen('account');return}}
+else{result=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(!result.error){$('authMessage').textContent='إذا كان البريد مسجلاً، سيصلك رابط آمن لاستعادة كلمة السر. افتح الرابط واتبع التعليمات.';$('authMessage').classList.remove('hidden');return}}
+if(result?.error)throw result.error
+}catch(err){$('authMessage').textContent=err.message||'حدث خطأ، حاول مرة أخرى.';$('authMessage').classList.remove('hidden')}finally{$('authSubmit').disabled=false}});
+async function refreshUser(){if(!sb)return;const {data}=await sb.auth.getSession();currentUser=data.session?.user||null;renderAccount();sb.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;renderAccount()})}
+function renderAccount(){if(currentUser){$('accountName').textContent=currentUser.user_metadata?.full_name||'أهلاً بك';$('accountEmail').textContent=currentUser.email||'';$('accountStatus').textContent='مسجّل';$('accountAuthBtn').textContent='✓'}else{$('accountName').textContent='مرحباً بك';$('accountEmail').textContent='سجّل الدخول لإدارة حسابك';$('accountStatus').textContent='ضيف';$('accountAuthBtn').textContent='↗'}}
+$('logoutBtn').onclick=async()=>{if(sb)await sb.auth.signOut();currentUser=null;renderAccount();showScreen('home');toast('تم تسجيل الخروج')};
+function renderCart(){$('cartItems').innerHTML='';if(!cart.length){$('cartItems').innerHTML='<div class="empty">السلة فارغة حالياً.</div>';$('cartTotal').textContent='$0.00';return}let total=0;cart.forEach((p,i)=>{total+=Number(p.price)||0;const row=document.createElement('div');row.className='listrow';const name=document.createElement('span');name.textContent=p.name;const right=document.createElement('div');right.style.textAlign='left';const price=document.createElement('b');price.textContent=money(p);const del=document.createElement('button');del.className='linkbtn danger';del.textContent='حذف';del.onclick=()=>{cart.splice(i,1);$('cartCount').textContent=cart.length;renderCart()};right.append(price,del);row.append(name,right);$('cartItems').append(row)});$('cartTotal').textContent='$'+total.toFixed(2)}
+$('cartTop').onclick=()=>showScreen('cart');$('checkoutBtn').onclick=()=>{if(!currentUser)showAuth('login');else toast('إتمام الطلب غير مفعّل حتى إعداد نظام الطلبات والدفع الآمن')};
+$('searchBtn').onclick=()=>{const q=$('searchInput').value.trim().toLowerCase();renderProducts(products.filter(p=>(p.name+' '+p.category+' '+(p.description||'')).toLowerCase().includes(q)));$('productsSection').scrollIntoView({behavior:'smooth'})};
+$('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('searchBtn').click()});
+document.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{renderProducts(products.filter(p=>p.category===b.dataset.category));$('productsSection').scrollIntoView({behavior:'smooth'})});
+$('menuBtn').onclick=()=>showScreen('account');$('bellBtn').onclick=()=>toast('لا توجد إشعارات جديدة');
+$('supportForm').addEventListener('submit',e=>{e.preventDefault();if(!currentUser){showAuth('login');return}toast('نظام تذاكر الدعم لم يُفعّل بعد في قاعدة البيانات')});
+if(sb){sb.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;renderAccount();if(event==='PASSWORD_RECOVERY'){showAuth('reset');toast('عيّن كلمة سر جديدة من هنا')}})}
+loadProducts();refreshUser();renderAccount();
 </script>
-</body>
-</html>
+</body></html>
