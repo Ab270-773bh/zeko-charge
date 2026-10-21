@@ -13,32 +13,47 @@
     }
     * { box-sizing: border-box; }
     body {
-      margin: 0; padding: 18px;
-      background: var(--bg); color: var(--text);
+      margin: 0;
+      padding: 18px;
+      background: var(--bg);
+      color: var(--text);
       font-family: Arial, sans-serif;
     }
     main { max-width: 760px; margin: auto; }
     h1 { color: #b69aff; }
     section {
-      background: var(--panel); padding: 18px;
-      border-radius: 14px; margin: 16px 0;
+      background: var(--panel);
+      padding: 18px;
+      border-radius: 14px;
+      margin: 16px 0;
     }
     input, select, button {
-      width: 100%; padding: 12px; margin: 6px 0;
-      border-radius: 8px; border: 1px solid #45455a;
+      width: 100%;
+      padding: 12px;
+      margin: 6px 0;
+      border-radius: 8px;
+      border: 1px solid #45455a;
       font-size: 16px;
     }
-    input, select { background: #10101a; color: white; }
+    input, select {
+      background: #10101a;
+      color: white;
+    }
     button {
-      background: var(--primary); color: white;
-      border: 0; font-weight: bold; cursor: pointer;
+      background: var(--primary);
+      color: white;
+      border: 0;
+      font-weight: bold;
+      cursor: pointer;
     }
     .secondary { background: #343447; }
     .item {
-      border: 1px solid #44445a; padding: 12px;
-      margin-top: 10px; border-radius: 10px;
+      border: 1px solid #44445a;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
     }
-    .hidden { display: none; }
+    .hidden { display: none !important; }
     .hint { color: #c5c5d5; line-height: 1.7; }
   </style>
 </head>
@@ -49,7 +64,10 @@
 
   <section id="setup">
     <h2>إعداد الاتصال</h2>
-    <p class="hint">ضع رابط مشروع Supabase والمفتاح العام Publishable Key. لا تستخدم service_role أو Secret Key.</p>
+    <p class="hint">
+      أدخل رابط مشروع Supabase والمفتاح العام Publishable Key.
+      لا تستخدم service_role أو Secret Key.
+    </p>
     <input id="url" placeholder="Supabase Project URL">
     <input id="key" placeholder="Publishable Key أو anon key">
     <button id="connect">الاتصال بالمشروع</button>
@@ -58,11 +76,25 @@
 
   <section id="login" class="hidden">
     <h2>دخول المدير</h2>
-    <input id="email" type="email" placeholder="البريد الإلكتروني">
-    <input id="password" type="password" placeholder="كلمة السر" autocomplete="current-password">
+    <input id="email" type="email" placeholder="البريد الإلكتروني"
+      autocomplete="username">
+    <input id="password" type="password" placeholder="كلمة السر"
+      autocomplete="current-password">
     <button id="signIn">تسجيل الدخول</button>
+    <button id="forgotPassword" class="secondary">نسيت كلمة السر؟</button>
     <button id="signOut" class="secondary hidden">تسجيل الخروج</button>
     <p id="loginMsg" class="hint"></p>
+  </section>
+
+  <section id="recovery" class="hidden">
+    <h2>تعيين كلمة سر جديدة</h2>
+    <p class="hint">أدخل كلمة سر جديدة لا تقل عن 8 أحرف.</p>
+    <input id="newPassword" type="password"
+      placeholder="كلمة السر الجديدة" autocomplete="new-password">
+    <input id="confirmPassword" type="password"
+      placeholder="تأكيد كلمة السر الجديدة" autocomplete="new-password">
+    <button id="savePassword">حفظ كلمة السر الجديدة</button>
+    <p id="recoveryMsg" class="hint"></p>
   </section>
 
   <div id="dashboard" class="hidden">
@@ -70,7 +102,8 @@
       <h2>إضافة منتج</h2>
       <input id="productName" placeholder="اسم المنتج">
       <input id="category" placeholder="التصنيف، مثلاً ألعاب">
-      <input id="price" type="number" min="0" step="0.01" placeholder="السعر">
+      <input id="price" type="number" min="0" step="0.01"
+        placeholder="السعر">
       <select id="currency">
         <option value="USD">دولار أمريكي USD</option>
         <option value="SYP">ليرة سورية SYP</option>
@@ -108,36 +141,132 @@
 
   const $ = id => document.getElementById(id);
   let db = null;
+  let recoveryMode = false;
 
   $("connect").onclick = async () => {
     const url = $("url").value.trim();
     const key = $("key").value.trim();
+
     if (!url.startsWith("https://") || !key) {
-      $("setupMsg").textContent = "تأكد من رابط المشروع والمفتاح العام.";
+      $("setupMsg").textContent =
+        "تأكد من رابط المشروع والمفتاح العام.";
       return;
     }
+
     try {
       db = createClient(url, key);
-      const { error } = await db.auth.getSession();
+      const { data, error } = await db.auth.getSession();
       if (error) throw error;
-      $("setupMsg").textContent = "تم الاتصال. سجّل دخولك.";
+
+      $("setupMsg").textContent = "تم الاتصال بنجاح.";
       $("login").classList.remove("hidden");
       $("connect").textContent = "تم الاتصال";
+
+      if (window.location.hash.includes("error_description=")) {
+        $("setupMsg").textContent =
+          "تعذر فتح رابط الاستعادة. اطلب رابطاً جديداً بعد انتهاء حد الإرسال.";
+      } else if (window.location.hash.includes("type=recovery")) {
+        recoveryMode = true;
+        $("recovery").classList.remove("hidden");
+        $("loginMsg").textContent =
+          data.session
+            ? "تم التحقق من رابط الاستعادة. عيّن كلمة السر الجديدة."
+            : "لم يتم العثور على جلسة استعادة. قد تحتاج إلى طلب رابط جديد.";
+      } else if (data.session) {
+        await checkAdmin();
+      }
     } catch (e) {
       $("setupMsg").textContent = "تعذر الاتصال: " + e.message;
     }
   };
 
+  $("forgotPassword").onclick = async () => {
+    if (!db) {
+      $("loginMsg").textContent = "اتصل بالمشروع أولاً.";
+      return;
+    }
+
+    const email = $("email").value.trim();
+    if (!email) {
+      $("loginMsg").textContent = "أدخل بريدك الإلكتروني أولاً.";
+      return;
+    }
+
+    const redirectTo = window.location.origin +
+      window.location.pathname;
+
+    const { error } = await db.auth.resetPasswordForEmail(email, {
+      redirectTo
+    });
+
+    $("loginMsg").textContent = error
+      ? "تعذر إرسال الرسالة: " + error.message
+      : "إذا كان البريد صحيحاً، ستصلك رسالة استعادة. تحقق من البريد والرسائل غير المرغوب فيها.";
+  };
+
+  $("savePassword").onclick = async () => {
+    if (!db || !recoveryMode) {
+      $("recoveryMsg").textContent =
+        "افتح رابط الاستعادة الصحيح أولاً.";
+      return;
+    }
+
+    const password = $("newPassword").value;
+    const confirm = $("confirmPassword").value;
+
+    if (password.length < 8) {
+      $("recoveryMsg").textContent =
+        "كلمة السر يجب أن تكون 8 أحرف على الأقل.";
+      return;
+    }
+
+    if (password !== confirm) {
+      $("recoveryMsg").textContent =
+        "كلمتا السر غير متطابقتين.";
+      return;
+    }
+
+    const { data: sessionData } = await db.auth.getSession();
+    if (!sessionData.session) {
+      $("recoveryMsg").textContent =
+        "جلسة الاستعادة غير موجودة أو انتهت صلاحيتها. اطلب رابطاً جديداً.";
+      return;
+    }
+
+    const { error } = await db.auth.updateUser({ password });
+
+    if (error) {
+      $("recoveryMsg").textContent =
+        "تعذر تغيير كلمة السر: " + error.message;
+      return;
+    }
+
+    recoveryMode = false;
+    $("recovery").classList.add("hidden");
+    $("password").value = "";
+    $("newPassword").value = "";
+    $("confirmPassword").value = "";
+    $("loginMsg").textContent =
+      "تم تغيير كلمة السر بنجاح. سجّل الدخول بكلمة السر الجديدة.";
+    $("login").classList.remove("hidden");
+
+    await db.auth.signOut();
+    history.replaceState(null, "", window.location.pathname);
+  };
+
   $("signIn").onclick = async () => {
     if (!db) return;
+
     const { error } = await db.auth.signInWithPassword({
       email: $("email").value.trim(),
       password: $("password").value
     });
+
     if (error) {
       $("loginMsg").textContent = "فشل الدخول: " + error.message;
       return;
     }
+
     $("loginMsg").textContent = "تم تسجيل الدخول، جارٍ فحص الصلاحيات...";
     await checkAdmin();
   };
@@ -145,6 +274,7 @@
   async function checkAdmin() {
     const { data: { user } } = await db.auth.getUser();
     if (!user) return;
+
     const { data, error } = await db.from("admins")
       .select("user_id").eq("user_id", user.id).maybeSingle();
 
@@ -154,6 +284,7 @@
         "الحساب ليس مديراً أو تعذر التحقق من الصلاحيات.";
       return;
     }
+
     $("dashboard").classList.remove("hidden");
     $("signOut").classList.remove("hidden");
     $("loginMsg").textContent = "أهلاً بك في لوحة الإدارة.";
@@ -170,11 +301,14 @@
   $("addProduct").onclick = async () => {
     const name = $("productName").value.trim();
     const price = Number($("price").value);
+
     if (!name || $("price").value === "" ||
         !Number.isFinite(price) || price < 0) {
-      $("productMsg").textContent = "أدخل اسم المنتج وسعراً صحيحاً.";
+      $("productMsg").textContent =
+        "أدخل اسم المنتج وسعراً صحيحاً.";
       return;
     }
+
     const { error } = await db.from("products").insert({
       name,
       category: $("category").value.trim() || "عام",
@@ -184,11 +318,13 @@
       image_url: $("image").value.trim(),
       active: true
     });
+
     $("productMsg").textContent = error
       ? "تعذر إضافة المنتج: " + error.message
       : "تمت إضافة المنتج.";
+
     if (!error) {
-      ["productName","category","price","description","image"]
+      ["productName", "category", "price", "description", "image"]
         .forEach(id => $(id).value = "");
       await loadProducts();
     }
@@ -197,44 +333,58 @@
   async function loadProducts() {
     const { data, error } = await db.from("products")
       .select("*").order("created_at", { ascending: false });
+
     if (error) {
-      $("products").textContent = "تعذر جلب المنتجات: " + error.message;
+      $("products").textContent =
+        "تعذر جلب المنتجات: " + error.message;
       return;
     }
+
     $("products").replaceChildren();
+
     data.forEach(p => {
       const box = document.createElement("div");
       box.className = "item";
+
       const title = document.createElement("strong");
       title.textContent = p.name;
+
       const info = document.createElement("p");
       info.textContent = `${p.price} ${p.currency} — ${p.category}`;
+
       const edit = document.createElement("button");
       edit.textContent = "تعديل الاسم والسعر";
       edit.onclick = async () => {
         const name = prompt("اسم المنتج:", p.name);
         if (name === null) return;
+
         const priceText = prompt("السعر:", String(p.price));
         if (priceText === null) return;
+
         const price = Number(priceText);
         if (!name.trim() || !Number.isFinite(price) || price < 0) {
           alert("الاسم أو السعر غير صحيح.");
           return;
         }
+
         const { error } = await db.from("products")
           .update({ name: name.trim(), price }).eq("id", p.id);
+
         if (error) alert("تعذر التعديل: " + error.message);
         else await loadProducts();
       };
+
       const toggle = document.createElement("button");
       toggle.className = "secondary";
       toggle.textContent = p.active ? "إخفاء المنتج" : "إظهار المنتج";
       toggle.onclick = async () => {
         const { error } = await db.from("products")
           .update({ active: !p.active }).eq("id", p.id);
+
         if (error) alert("تعذر تغيير الحالة: " + error.message);
         else await loadProducts();
       };
+
       box.append(title, info, edit, toggle);
       $("products").append(box);
     });
@@ -243,11 +393,15 @@
   async function loadAppearance() {
     const { data, error } = await db.from("store_settings")
       .select("*").eq("id", 1).maybeSingle();
+
     if (error) {
-      $("appearanceMsg").textContent = "تعذر تحميل الإعدادات: " + error.message;
+      $("appearanceMsg").textContent =
+        "تعذر تحميل الإعدادات: " + error.message;
       return;
     }
+
     if (!data) return;
+
     $("storeName").value = data.store_name || "ZEKO CHARGE";
     $("primary").value = data.primary_color || "#7c3aed";
     $("background").value = data.background_color || "#0b0b12";
@@ -265,6 +419,7 @@
       banner_url: $("banner").value.trim(),
       updated_at: new Date().toISOString()
     });
+
     $("appearanceMsg").textContent = error
       ? "تعذر حفظ المظهر: " + error.message
       : "تم حفظ الإعدادات.";
