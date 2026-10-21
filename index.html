@@ -60,38 +60,54 @@
 </section>
 
 <section id="walletScreen" class="hidden">
- <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>محفظتي</h2></div>
- <div class="panel"><div class="muted">الرصيد المتاح</div><div class="balance" id="walletBalance2">—</div><div class="notice">الإيداع والتحويلات غير مفعّلة حتى يتم إعداد قواعد قاعدة البيانات والمراجعة الإدارية. لا تحوّل أموالاً بناءً على هذه الصفحة وحدها.</div></div>
- <div class="panel"><h3>سجل حركات المحفظة</h3><div class="empty">سيظهر سجل الحركات بعد ربط نظام المحفظة الآمن.</div></div>
-</section>
+  <div class="screenTitle">
+    <button class="round" data-screen="account">←</button>
+    <h2>محفظتي</h2>
+  </div>
 
-<section id="ordersScreen" class="hidden">
- <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>طلباتي</h2></div><div class="panel"><div class="empty">سجّل الدخول. سجل الطلبات الحقيقي سيظهر بعد تفعيل جدول الطلبات وربطه.</div></div>
-</section>
+  <div class="panel">
+    <div class="muted">الرصيد المتاح</div>
+    <div class="balance" id="walletBalance2">—</div>
+    <button class="goldbtn" style="width:100%;margin-top:14px"
+      data-screen="deposit">
+      💰 إيداع رصيد
+    </button>
+  </div>
 
-<section id="verifyScreen" class="hidden">
- <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>توثيق الهوية</h2></div>
- <div class="panel"><div class="notice">ارفع مستندات الهوية فقط إذا كنت ترغب بالتوثيق. يجب تفعيل مساحة تخزين خاصة وسياسات وصول آمنة قبل إرسال أي صورة هوية. لا ترفع صوراً هنا قبل تفعيل التخزين الآمن.</div><div class="empty">توثيق الهوية غير مفعّل بعد — سنضيفه بعد إعداد التخزين الخاص ومراجعة الإدارة.</div></div>
-</section>
+  <div class="panel" id="depositPanel">
+    <h3>طلب إيداع جديد</h3>
+    <form id="depositForm" class="form">
+      <label>مبلغ الإيداع</label>
+      <input id="depositAmount" class="field" type="number"
+        min="1" step="0.01" required placeholder="أدخل المبلغ">
 
-<section id="supportScreen" class="hidden">
- <div class="screenTitle"><button class="round" data-screen="account">←</button><h2>فريق الدعم</h2></div>
- <div class="panel"><div class="notice">تواصل الدعم داخل المتجر سيتطلب تفعيل جدول التذاكر وصلاحياته حتى تبقى رسائلك خاصة.</div><form id="supportForm" class="form" style="margin-top:12px"><label>عنوان المشكلة</label><input id="supportSubject" class="field" required maxlength="120" placeholder="مثلاً: مشكلة في الطلب"><label>التفاصيل</label><textarea id="supportBody" class="field" required maxlength="2000" rows="4" placeholder="اشرح المشكلة..."></textarea><button class="goldbtn" type="submit">إرسال طلب الدعم</button></form><div id="supportMessage" class="notice hidden"></div><div class="empty">لن يتم إرسال أو حفظ الرسالة حتى يتم إعداد نظام الدعم في قاعدة البيانات.</div></div>
-</section>
+      <label>العملة</label>
+      <select id="depositCurrency" class="field" required>
+        <option value="USD">دولار أمريكي (USD)</option>
+        <option value="SYP">ليرة سورية (SYP)</option>
+      </select>
 
-<section id="cartScreen" class="hidden">
- <div class="screenTitle"><button class="round" data-screen="home">←</button><h2>سلة المشتريات</h2></div><div class="panel" id="cartItems"><div class="empty">السلة فارغة حالياً.</div></div><div class="panel"><div class="listrow"><span>المجموع</span><b class="price" id="cartTotal">$0.00</b></div><button class="goldbtn" id="checkoutBtn" style="width:100%">تسجيل الدخول لإكمال الطلب</button><div class="muted" style="margin-top:9px">إتمام الطلب والدفع الحقيقي غير مفعّلين قبل إعداد قاعدة الطلبات ومزوّد الشحن.</div></div>
-</section>
+      <label>طريقة الدفع</label>
+      <select id="depositMethod" class="field" required>
+        <option value="Sham Cash">شام كاش</option>
+        <option value="Binance">Binance</option>
+      </select>
 
-<div id="toast" class="panel hidden" style="position:fixed;bottom:88px;left:14px;right:14px;z-index:30"></div>
-<nav class="tabs">
- <button class="tab active" data-screen="home"><span>⌂</span>الرئيسية</button>
- <button class="tab" data-screen="orders"><span>▤</span>الطلبات</button>
- <button class="tab" data-screen="account"><span>♙</span>حسابي</button>
- <button class="tab" data-screen="support"><span>◉</span>الدعم</button>
-</nav>
-</div>
-<script>
+      <label>رقم العملية أو مرجع التحويل</label>
+      <input id="depositReference" class="field" maxlength="150"
+        required placeholder="أدخل رقم العملية">
+
+      <button class="goldbtn" type="submit">إرسال طلب الإيداع</button>
+    </form>
+    <div id="depositMessage" class="notice hidden" style="margin-top:12px"></div>
+    <p class="muted">لن يُضاف الرصيد حتى يتم التحقق من وصول المبلغ والموافقة على الطلب.</p>
+  </div>
+
+  <div class="panel">
+    <h3>سجل حركات المحفظة</h3>
+    <div class="empty">سيظهر السجل بعد ربط نظام المحفظة الآمن.</div>
+  </div>
+</section>
 /* إعداد Supabase: ضع رابط مشروعك والمفتاح العام publishable/anon هنا فقط.
    لا تضع service_role key أبداً داخل HTML. */
 const SUPABASE_URL = 'https://hclijvtwwtnqbmnpyjkj.supabase.co';
